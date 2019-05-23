@@ -67,20 +67,39 @@ function calcularPrioridad() {
     saveSemester();
     let prioridad = 100 * (sumaNotasCreditosSemestre/(14 * Math.pow(semestre,1.06))) * (creditosAprovadosSemestre/creditosTotalesSemestre) * factorActividadExt;
     // Mostrar resultado
-    d3.select('#calculo').attr('data-content', prioridad)
-    $('#calculo').popover('show')
+    prioridad = Math.round(prioridad * 100) / 100.0
+    if (d3.select('#resPrioridad').select('div')._groups[0][0]) {
+        d3.select('#resPrioridad').select('h4').text('Tu prioridad en S' + semestre + ' es: ' + prioridad)
+    } else {
+    
+    d3.select('#resPrioridad').attr('style', 'height:auto')
+     .append('div')
+      .classed("alert text-center alert-info alert-dismissible fade show mb-2 pb-2", true)
+      .attr('id','calculo')
+      .attr('role', 'alert')
+      .append('h4')
+        .classed('alert-heading', true)
+        .text('Tu prioridad en S-' + semestre + ' es: ' + prioridad);
+    d3.select('#resPrioridad').select('div')
+      .append('button')
+      .classed('close', true)
+      .attr('type', 'button')
+      .attr('data-dismiss','alert')
+      .attr('aria-label','close')
+      .append('span')
+        .attr('aria-hidden','true')
+        .html("&times;");
+    $('#calculo').alert()
+    $('#calculo').on('closed.bs.alert', function () {
+        // d3.select('#resPrioridad').attr('style','max-height:0rem');
+      })
+    }
     console.log(creditosAprovadosSemestre, creditosTotalesSemestre, sumaNotasCreditosSemestre);
-    // var t = d3.timer(function(elapsed) {
-    //     $('#calculo').popover('toggle')
-    //     if (elapsed > 200) t.stop();
-    //   }, 2000);
-    // La prioridad se guarda por si acaso
-    var t = d3.timeout(function(elapsed) {
-        $('#calculo').popover('hide');       
-        $('#calculo').popover('dispose');       
-      }, 1500);
+
     return [creditosTotalesSemestre, creditosAprovadosSemestre, sumaNotasCreditosSemestre, prioridad];
 }
+$(document).ready(function(){
+    });
 
 // recalculo de valores para calculo prioridad semestre
 function valoresSemestresAnteriores() {
