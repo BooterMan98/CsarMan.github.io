@@ -119,7 +119,7 @@ aria-hidden="true">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="button" onclick="crearRamo(true)" class="btn btn-primary">Agregar</button>
+          <button type="button" id="crearRamo" onclick="crearRamo(true)" class="btn btn-primary">Agregar</button>
         </div>
       </div>
     </div>
@@ -168,7 +168,7 @@ aria-hidden="true">
                   <div class="container-fluid">
                   <div class="row justify-content-center">
                     <div class="btn-group" role="group">
-                      <button type="button" onclick="generate()" class="btn btn-info">
+                      <button type="button" id="generar" onclick="generate()" class="btn btn-info">
                         Generar
                       </button>
                       <button type="reset" onclick="limpiarSemestre()" class="btn btn-danger">
