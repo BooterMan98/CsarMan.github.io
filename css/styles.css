@@ -1,18 +1,13 @@
 * {
-    margin: 0px;
-                    
-    }
-.navi {
-    display: inline-block;
+  padding: 8px;
 }
 
-.block {
-    display: block;
-    width: 100%;
-    border: none;
-    background-color: #4CAF50;
-    padding: 14px 28px;
-    font-size: 16px;
-    cursor: pointer;
-    text-align: center;
+html, body, nav, header {
+  padding: 0px;
 }
+
+body {
+  margin: 0px;
+}
+
+/*# sourceMappingURL=styles.css.map */
