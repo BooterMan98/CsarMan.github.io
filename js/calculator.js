@@ -21,6 +21,7 @@ function start_priorix() {
             let datosRamo = customRamosProps[sigla]
             let ramo = new SelectableRamo(datosRamo[0],datosRamo[1],datosRamo[2],datosRamo[3],[],id,datosRamo[4]);
             id++;
+            ramo.isCustom = true
             all_ramos[sigla] = ramo
             custom_ramos.add(sigla)
         }
@@ -63,7 +64,7 @@ function calcularPrioridad() {
         }
     });
     saveSemester();
-    let prioridad = 100 * (sumaNotasCreditosSemestre/(14 * Math.pow(semestre,1.06))) * (creditosAprovadosSemestre/creditosTotalesSemestre) * factorActividadExt;
+    let prioridad = 100 * (sumaNotasCreditosSemestre/(23 * Math.pow(semestre,1.06))) * (creditosAprovadosSemestre/creditosTotalesSemestre) * factorActividadExt;
     // Mostrar resultado
     prioridad = Math.round(prioridad * 100) / 100.0
     if (d3.select('#resPrioridad').select('div')._groups[0][0]) {
@@ -148,7 +149,7 @@ function proximoSemestre() {
         if (Number(document.getElementById('nota-' + ramo.sigla).value) > 54) {
             ramo.selectRamo();
             ramo.approveRamo();
-        } else  if (hayProximoSemestre) {
+        } else  if (hayProximoSemestre && !ramo.isCustom) {
             ramo.selectRamo();
             d3.select("#" + ramo.sigla).select(".selected").transition().duration(150).attr('stroke','yellow')
               .transition().duration(150).attr("opacity", ".8")
@@ -157,7 +158,7 @@ function proximoSemestre() {
               .transition().duration(150).attr("opacity", ".001")
               .attr('stroke','green');
             delay = 760;
-        } else {
+        } else if (!ramo.isCustom){
             d3.select("#" + ramo.sigla).select(".selected").transition().duration(150).attr('stroke','red')
                 .transition().duration(150).attr("opacity", ".5")
                 .transition().duration(150).attr("opacity", ".8")
@@ -271,6 +272,7 @@ function crearRamo() {
     document.getElementById('custom-name').value = null
     document.getElementById('custom-sigla').value = null
     document.getElementById('custom-credits').value = null
+    ramo.isCustom = true
     ramo.selectRamo();
     $('#crearRamoModal').modal('hide');
 }

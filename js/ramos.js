@@ -8,7 +8,7 @@ function Ramo(nombre, sigla, creditos, sector, prer = [], id, colorBySector) {
 	this.prer = new Set(prer);
 	this.id = id;
 	this.ramo;
-	let approved = false;
+	this.approved = false;
 	let self = this;
 
 	this.draw = function(canvas, posX, posY, scaleX, scaleY) {
@@ -152,7 +152,7 @@ function Ramo(nombre, sigla, creditos, sector, prer = [], id, colorBySector) {
 	};
 
 	this.approveRamo = function() {
-		if (!approved) {
+		if (!self.approved) {
 			d3.select("#" + self.sigla).select(".cross").transition().delay(20).attr("opacity", "1");
 			APPROVED.push(self);
 		} else {
@@ -162,7 +162,7 @@ function Ramo(nombre, sigla, creditos, sector, prer = [], id, colorBySector) {
 				APPROVED.splice(_i, 1);
 			}
 		}
-		approved = !approved;
+		self.approved = !self.approved;
 	};
 
 	this.verifyPrer = function() {
@@ -182,7 +182,7 @@ function Ramo(nombre, sigla, creditos, sector, prer = [], id, colorBySector) {
 
 	// Lo necesito
 	this.isApproved = function() {
-		return approved;
+		return self.approved;
 	};
 
 }

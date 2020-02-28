@@ -8,6 +8,7 @@ function SelectableRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySec
 	this.base = Ramo
 	this.base(nombre, sigla, creditos, sector, prer, id, colorBySector)
 	this.selected = false;
+	this.isCustom = false
 	let self = this;
   	// let ramo = this.ramo;
 
@@ -255,7 +256,25 @@ function SelectableRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySec
 		}
 		self.ramo.select(".non-approved").transition().duration(70).attr("opacity", "0.0");
 	}
-
+	
+	this.approveRamo = function () {
+		if (!self.approved) {
+			if (!self.isCustom) {
+				d3.select("#" + self.sigla).select(".cross").transition().delay(20).attr("opacity", "1");
+			 }
+			APPROVED.push(self);
+		} else {
+			if (!self.isCustom) {
+				d3.select("#" + self.sigla).select(".cross").transition().delay(20).attr("opacity", "0.01");
+			}
+			let _i = APPROVED.indexOf(self);
+			if (_i > -1) {
+				APPROVED.splice(_i, 1);
+			}
+		}
+		self.approved = !self.approved;
+	}
 }
+
 
 SelectableRamo.prototype = Ramo

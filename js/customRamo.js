@@ -7,12 +7,28 @@ function CustomRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySector)
 	this.base(nombre, sigla, creditos, sector, prer, id, colorBySector) 
 	// var selected = false;
 	let self = this;
+	let prerOfCounter = 0
+	this.prerOf = new Set()
+	
 	// let ramo;
 	
 	// NEW!!!
+		this.addReq = function() {
+			prerOfCounter++
+		}
+		this.removeReq = function() {
+			prerOfCounter--
+		}
+		this.isAPrer = function() {
+			if (prerOfCounter) {
+				return true
+			} else {
+				return false
+			}
+		}
 	this.selectRamo = function() {
 		
-		if (self.isApproved()) { // Si el ramo esta aprovado, no se selecciona
+		if (self.isApproved()) { // Si el ramo esta aprobado, no se selecciona
 			if (!custom_ramos.has(this.sigla)) {
 				d3.select("#" + self.sigla).select(".selected").attr('stroke','red');
 				d3.select("#" + self.sigla).select(".selected").transition().duration(200).attr("opacity", ".8")
@@ -45,7 +61,7 @@ function CustomRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySector)
 			let rigth = card.append('button');
 			rigth.classed('btn', true)
 				.classed('btn-warning', true)
-				.classed('text-white', true)
+				// .classed('text-white', true)
 				.classed('align-self-stretch', true)
 				.attr('type','button')
 				.attr('onclick','editRamo("' + self.sigla + '")')
@@ -62,7 +78,74 @@ function CustomRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySector)
 		}
 		self.selected = !self.selected;
 	}
-	
+
+	this.addToCustomTable = function() {
+		let table = d3.select('#customTableContent');
+
+		let acciones;
+        fila = table.append('tr');
+
+        fila.attr('id','CUSTOM-'+ self.sigla);
+        fila.append('th')
+            .attr('scope','row')
+            .text(self.sigla);
+		fila.append('td')
+			.attr('id', 'C-name-' + self.sigla)
+			.text(self.nombre)
+			fila.append('td')
+			.attr('id', 'C-credits-' + self.sigla)
+            .text(self.creditos);
+        if (self.selected) {
+            fila.append('td').attr('id','state-' + self.sigla).text('Seleccionado')
+        } else {
+            fila.append('td').attr('id','state-' + self.sigla).text('No Seleccionado')
+		}
+
+		let preText = ''
+		self.prer.forEach(sigla => {
+			if (preText == '') {
+				preText = sigla
+			} else {
+				preText += ', ' + sigla
+			}
+		});
+
+
+		fila.append('td')
+			.attr('id', 'C-prer-' + self.sigla)
+			.text(preText)
+        acciones = fila.append('td').append('div')
+		acciones.attr('class', 'btn-group').attr('role','group')
+		let selectedStateText = 'Seleccionar Ramo'	
+        if (self.selected) {
+			selectedStateText = "De-Seleccionar Ramo"
+		}
+		acciones.append('button')
+			.attr('id','add-'+ self.sigla)
+			.attr('class','btn btn-secondary')
+			.attr('type','button')
+			.attr('onclick','all_ramos["'+ self.sigla+'"].selectRamo()')
+			.text(selectedStateText);
+		if (self.isCustom) {
+			acciones.append('span')
+				// .classed('d-inline-block', true)
+				.attr('tabindex', '0')
+				.attr('id', 'deletetip-'+ self.sigla)
+				.attr('data-toggle','tooltip')
+				.attr('data-placement','top')
+				.attr('title','El ramo esta asignado a otro semestre o es pre-requisito de otro')
+				.append('button')
+				.style('pointer-events','none')
+				.style('border-radius','0 3px 3px 0')
+				.attr('id','delete-'+ self.sigla)
+				.attr('class','btn btn-danger')
+				.attr('type','button')
+				.attr('onclick','deleteRamofromTable("'+ self.sigla + '")')
+				.text('Eliminar Ramo');
+			$('[data-toggle="tooltip"]').tooltip()
+		}
+	}
 }
+
 
 CustomRamo.prototype = SelectableRamo

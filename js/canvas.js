@@ -157,17 +157,33 @@ function main_function(error, data, colorBySector) {
 
 		if (data[semester].length > longest_semester)
 			longest_semester = data[semester].length;
-
+	// let thisRamoUnlocks = {}
 		data[semester].forEach(function(ramo) {
 			malla[semester][ramo[1]] = new tipoRamo(ramo[0], ramo[1], ramo[2], ramo[3], (function() {
-				if (ramo.length > 4)
+				if (ramo.length > 4) {
+					// ramo[4].forEach( function (sigla) {
+					// 	if (thisRamoUnlocks[sigla]){
+					// 		thisRamoUnlocks[sigla].add(ramo[0])
+					// 	} else {
+					// 		thisRamoUnlocks[sigla] = new Set(ramo[0])
+					// 	}
+					// })
 					return ramo[4];
+				}
 				return [];
+					
 			})(), id++, colorBySector)
+			
 			all_ramos[ramo[1]] = malla[semester][ramo[1]];
+			if (personal){
+				all_ramos[ramo[1]].prer.forEach(function(ramo) {
+					all_ramos[ramo].addReq()
+				});
+			}
             total_creditos += ramo[2];
             total_ramos++;
 		});
+		// for ramo 
 	}
 	for (var sector in colorBySector) {
 		all_sectors[sector] = colorBySector[sector]
