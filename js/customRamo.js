@@ -1,31 +1,27 @@
-var APPROVED = [];
-var SELECTED = [];
+//const APPROVED = [];
+//const SELECTED = [];
 
 
 function CustomRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySector) {
-	this.base = SelectableRamo
-	this.base(nombre, sigla, creditos, sector, prer, id, colorBySector) 
+	this.base = SelectableRamo;
+	this.base(nombre, sigla, creditos, sector, prer, id, colorBySector);
 	// var selected = false;
 	let self = this;
-	let prerOfCounter = 0
-	this.prerOf = new Set()
+	let prerOfCounter = 0;
+	this.prerOf = new Set();
 	
 	// let ramo;
 	
 	// NEW!!!
 		this.addReq = function() {
 			prerOfCounter++
-		}
+		};
 		this.removeReq = function() {
 			prerOfCounter--
-		}
+		};
 		this.isAPrer = function() {
-			if (prerOfCounter) {
-				return true
-			} else {
-				return false
-			}
-		}
+			return !!prerOfCounter;
+		};
 	this.selectRamo = function() {
 		
 		if (self.isApproved()) { // Si el ramo esta aprobado, no se selecciona
@@ -52,7 +48,7 @@ function CustomRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySector)
 				.classed('py-0', true)
 				.classed('pr-0', true)
 				.style('opacity','0.01')
-				.transition().duration(300).style('opacity','1')
+				.transition().duration(300).style('opacity','1');
 			let left = card.append('div');
 			left.classed('flex-grow-1', true)
 				.classed('mr-3', true)
@@ -69,21 +65,25 @@ function CustomRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySector)
 		} else { // Ramo ya no esta seleccionado
 			if (!custom_ramos.has(this.sigla))
 			d3.select("#" + self.sigla).select(".selected").transition().delay(20).attr("opacity", "0.01");
-			d3.select("#per-" + self.sigla).transition().duration(300).style('opacity','0.01').remove()
-			let _i = SELECTED.indexOf(self)
+			d3.select("#per-" + self.sigla).transition().duration(300).style('opacity','0.01').remove();
+			let _i = SELECTED.indexOf(self);
 			if (_i > -1) {
 				SELECTED.splice(_i, 1);
 			}
 			
 		}
 		self.selected = !self.selected;
-	}
+	};
 
 	this.addToCustomTable = function() {
+		let creditos = self.creditos
+		if (sct) {
+			creditos = Math.ceil(creditos * 1.6)
+		}
 		let table = d3.select('#customTableContent');
 
 		let acciones;
-        fila = table.append('tr');
+		let fila = table.append('tr');
 
         fila.attr('id','CUSTOM-'+ self.sigla);
         fila.append('th')
@@ -91,19 +91,19 @@ function CustomRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySector)
             .text(self.sigla);
 		fila.append('td')
 			.attr('id', 'C-name-' + self.sigla)
-			.text(self.nombre)
+			.text(self.nombre);
 			fila.append('td')
 			.attr('id', 'C-credits-' + self.sigla)
-            .text(self.creditos);
+            .text(creditos);
         if (self.selected) {
             fila.append('td').attr('id','state-' + self.sigla).text('Seleccionado')
         } else {
             fila.append('td').attr('id','state-' + self.sigla).text('No Seleccionado')
 		}
 
-		let preText = ''
+		let preText = '';
 		self.prer.forEach(sigla => {
-			if (preText == '') {
+			if (preText === '') {
 				preText = sigla
 			} else {
 				preText += ', ' + sigla
@@ -113,10 +113,10 @@ function CustomRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySector)
 
 		fila.append('td')
 			.attr('id', 'C-prer-' + self.sigla)
-			.text(preText)
-        acciones = fila.append('td').append('div')
-		acciones.attr('class', 'btn-group').attr('role','group')
-		let selectedStateText = 'Seleccionar Ramo'	
+			.text(preText);
+        acciones = fila.append('td').append('div');
+		acciones.attr('class', 'btn-group').attr('role','group');
+		let selectedStateText = 'Seleccionar Ramo';
         if (self.selected) {
 			selectedStateText = "De-Seleccionar Ramo"
 		}
@@ -148,4 +148,4 @@ function CustomRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySector)
 }
 
 
-CustomRamo.prototype = SelectableRamo
+CustomRamo.prototype = SelectableRamo;

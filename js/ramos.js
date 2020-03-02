@@ -14,9 +14,13 @@ function Ramo(nombre, sigla, creditos, sector, prer = [], id, colorBySector) {
 	this.draw = function(canvas, posX, posY, scaleX, scaleY) {
 		self.ramo = canvas.append('g')
 			.attr('id', self.sigla);
-		var sizeX = 100 * scaleX,
+		let sizeX = 100 * scaleX,
 			sizeY = 100 * scaleY;
-		var graybar = sizeY / 5;
+		let graybar = sizeY / 5;
+		let creditos = self.creditos
+		if (sct) {
+			creditos = Math.ceil(creditos * 1.6)
+		}
 
 		self.ramo.append("rect")
 			.attr("x", posX)
@@ -31,7 +35,8 @@ function Ramo(nombre, sigla, creditos, sector, prer = [], id, colorBySector) {
 			.attr("y", posY)
 			.attr("width", sizeX * 1.2)
 			.attr("height", graybar)
-			.attr("fill", '#6D6E71');
+			.attr("fill", '#6D6E71')
+			.classed('bars', true);
 
 		// below bar
 		self.ramo.append("rect")
@@ -39,7 +44,8 @@ function Ramo(nombre, sigla, creditos, sector, prer = [], id, colorBySector) {
 			.attr("y", posY + sizeY - graybar)
 			.attr("width", sizeX * 1.2)
 			.attr("height", graybar)
-			.attr("fill", '#6D6E71');
+			.attr("fill", '#6D6E71')
+			.classed('bars', true);
 
 		// credits rect
 		self.ramo.append("rect")
@@ -53,7 +59,7 @@ function Ramo(nombre, sigla, creditos, sector, prer = [], id, colorBySector) {
 		self.ramo.append("text")
 			.attr("x", posX + sizeX * 1.2 - 17 * scaleX)
 			.attr("y", posY + sizeY - 6 * scaleY)
-			.text(self.creditos)
+			.text(creditos)
 			.attr("font-weight", "regular")
 			.attr("fill", "black")
 			.attr("font-size", 12 * scaleY);
@@ -125,7 +131,7 @@ function Ramo(nombre, sigla, creditos, sector, prer = [], id, colorBySector) {
 			let r = 9,
 				fontsize = 12,
 				variantX = 5;
-			variantY = 5;
+			let variantY = 5;
 			if (scaleX < 0.75) {
 				r--;
 				fontsize--;

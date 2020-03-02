@@ -1,10 +1,10 @@
-var semestre = 1;
-var mallaCustom
-var custom_ramos = new Set();
-var ramosSemestres;
-var customRamosProps = {}
-var editedPrer = new Set()
-var customSectors = {}
+let semestre = 1;
+let mallaCustom;
+const custom_ramos = new Set();
+let ramosSemestres;
+let customRamosProps = {};
+const editedPrer = new Set();
+let customSectors = {};
 
 function start_generator() {
     // los ramos fuera de malla se cargan primero
@@ -14,9 +14,9 @@ function start_generator() {
 
         for (var sigla in customRamosProps) {
             // inicializar ramos fuera de malla
-            let datosRamo = customRamosProps[sigla]
-            let prer = []
-            if (datosRamo.length == 6) {
+            let datosRamo = customRamosProps[sigla];
+            let prer = [];
+            if (datosRamo.length === 6) {
                 prer = datosRamo[5]
             }
             let ramo = new CustomRamo(datosRamo[0],datosRamo[1],datosRamo[2],datosRamo[3],prer, id,datosRamo[4]);
@@ -28,8 +28,8 @@ function start_generator() {
                     all_ramos[sigla].removeReq()
                 })
             }
-            ramo.addToCustomTable()
-            all_ramos[sigla] = ramo
+            ramo.addToCustomTable();
+            all_ramos[sigla] = ramo;
             custom_ramos.add(sigla)
         }
         for (let sigla in customRamosProps) {
@@ -48,22 +48,21 @@ function start_generator() {
     
     loadSemester();
     updateCustomTable();
-    var card = d3.select('#priorix');
-    if (semestre == 1) {
+    const card = d3.select('#priorix');
+    if (semestre === 1) {
         d3.select('#back').attr('disabled', 'disabled');
     }
     card.select('#semestre').text(semestre);
 
     // New!
-    let groupCache = localStorage[mallaCustom + '_SECTORS'] 
-    if (groupCache && groupCache['CUSTOM']) {
-        customSectors = JSON.parse(localStorage[mallaCustom + '_SECTORS'])
-        for (let sector in customSectors) {
-            all_sectors[sector] = customSectors[sector]
+    let groupCache = localStorage[mallaCustom + '_SECTORS'];
+    if (groupCache && groupCache['CUSTOM']) {;
+        groupCache = JSON.parse(groupCache)
+        for (let sector in groupCache) {
+            all_sectors[sector] = groupCache[sector]
         }
     } else {
-        customSectors['CUSTOM'] = ["#000000", "Fuera de la malla oficial"] 
-        all_sectors['CUSTOM'] = customSectors['CUSTOM'] 
+        all_sectors['CUSTOM'] = ["#000000", "Fuera de la malla oficial"]; 
     }
     fillSector()
 
@@ -71,15 +70,15 @@ function start_generator() {
 }
 
 function generate() {
-    var ramosDelSemestre = []
+    const ramosDelSemestre = [];
     SELECTED.forEach(ramo => {
         ramosDelSemestre.push(ramo.sigla);
     });
-    ramosSemestres[semestre] = ramosDelSemestre
+    ramosSemestres[semestre] = ramosDelSemestre;
     // Verificacion ramos duplicados
-    let ramosCursados = new Set()
-    let sem = 0
-    for (var s in ramosSemestres) {
+    let ramosCursados = new Set();
+    let sem = 0;
+    for (const s in ramosSemestres) {
         sem++;
         let ramosDuplicados = [];
         ramosSemestres[s].forEach(ramo => {
@@ -95,14 +94,14 @@ function generate() {
         })
     }
     // Limpieza de semestres inutiles
-    while (ramosSemestres[sem].length == 0) {
-        delete ramosSemestres[sem]
+    while (ramosSemestres[sem].length === 0) {
+        delete ramosSemestres[sem];
         sem--
     }
     // guardado
     let id = mallaCustom + '_SEMESTRES';
     localStorage.setItem(id, JSON.stringify(ramosSemestres));
-    localStorage.setItem(mallaCustom + '_CUSTOM', JSON.stringify(customRamosProps))
+    localStorage.setItem(mallaCustom + '_CUSTOM', JSON.stringify(customRamosProps));
 
     // redireccion
     window.location.href = "malla.html?m=" + current_malla;
@@ -112,16 +111,16 @@ function generate() {
 
 
 function semestreAnterior() {
-    if (semestre == 1) return;
+    if (semestre === 1) return;
     d3.select('#back').attr('onclick', null);
-    semestre--
+    semestre--;
     limpiarSemestre();
     setTimeout(function(){ // Tiempo para que se limpie la calculadora
         loadSemester();
         d3.select('#semestre').text(semestre);
-        if (semestre == 1) {
+        if (semestre === 1) {
             d3.select('#back').attr('disabled', 'disabled');
-        } else if (semestre == 19) {
+        } else if (semestre === 19) {
             d3.select('#forward').attr('disabled', null);
         }
         d3.select('#back').attr('onclick', 'semestreAnterior()');
@@ -131,20 +130,20 @@ function semestreAnterior() {
 function proximoSemestre() {
     d3.select('#forward').attr('onclick', null);
     saveSemester();
-    ++semestre
-    let ramos = []
+    ++semestre;
+    let ramos = [];
     SELECTED.forEach(ramo => {
     ramos.push(ramo);
     });
-    var delay = 300
+    const delay = 300;
     ramos.forEach(ramo => {
         ramo.selectRamo();
         ramo.approveRamo()
     });
     d3.select('#semestre').text(semestre);
-    if (semestre == 2) {
+    if (semestre === 2) {
         d3.select('#back').attr('disabled', null);
-    } else if (semestre == 20) {
+    } else if (semestre === 20) {
         d3.select('#forward').attr('disabled','disabled')
     }
     setTimeout(function(){ // Tiempo para que se limpie la calculadora
@@ -158,23 +157,23 @@ function proximoSemestre() {
 function saveSemester() {
     let id = mallaCustom + '_SEMESTRES';
     // Guardar ramos
-    var ramosDelSemestre = []
+    const ramosDelSemestre = [];
     SELECTED.forEach(ramo => {
         ramosDelSemestre.push(ramo.sigla);
     });
-    ramosSemestres[semestre] = ramosDelSemestre
+    ramosSemestres[semestre] = ramosDelSemestre;
     localStorage.setItem(id, JSON.stringify(ramosSemestres));
     localStorage.setItem(mallaCustom + '_CUSTOM', JSON.stringify(customRamosProps))
 
 }
 
 function loadSemester(next = false) {
-    var toLoad = ramosSemestres[semestre]
+    const toLoad = ramosSemestres[semestre];
     if (toLoad) {
         toLoad.forEach(sigla => {
-            let ramo = all_ramos[sigla]
+            let ramo = all_ramos[sigla];
             if (ramo.isApproved() && !next)
-                ramo.approveRamo()
+                ramo.approveRamo();
             ramo.selectRamo()
         });
     }
@@ -183,7 +182,7 @@ function loadSemester(next = false) {
 
 
 function limpiarSemestre() {
-    let ramos = []
+    let ramos = [];
     SELECTED.forEach(ramo => {
     ramos.push(ramo);
     });
@@ -203,11 +202,11 @@ function limpiarCalculadora() {
     // });
     // ramosSemestres = {}
 
-    localStorage[mallaCustom + '_SECTORS'] = JSON.stringify({})
+    localStorage[mallaCustom + '_SECTORS'] = JSON.stringify({});
     
-    localStorage[mallaCustom + '_SEMESTRES'] = JSON.stringify({})
+    localStorage[mallaCustom + '_SEMESTRES'] = JSON.stringify({});
 
-    localStorage[mallaCustom + '_CUSTOM'] = JSON.stringify({})
+    localStorage[mallaCustom + '_CUSTOM'] = JSON.stringify({});
 
     location.reload()
     // semestre = 1
@@ -230,16 +229,16 @@ function crearRamo() {
     sigla = String(document.getElementById('custom-sigla').value);
     creditos = Number(document.getElementById('custom-credits').value);
 
-    let sector = {"CUSTOM": all_sectors['CUSTOM']}
-    let customRamo = [nombre,sigla, creditos, 'CUSTOM' ,sector, []]
-    let ramo = new CustomRamo(nombre, sigla, creditos, 'CUSTOM', [], id, sector)
-    id++
+    let sector = {"CUSTOM": all_sectors['CUSTOM']};
+    let customRamo = [nombre,sigla, creditos, 'CUSTOM' ,sector, []];
+    let ramo = new CustomRamo(nombre, sigla, creditos, 'CUSTOM', [], id, sector);
+    id++;
     all_ramos[sigla] = ramo;
     customRamosProps[sigla] = customRamo;
     custom_ramos.add(sigla);
-    localStorage[mallaCustom+'_CUSTOM'] = JSON.stringify(customRamosProps)
-    ramo.isCustom = true
-    ramo.addToCustomTable()
+    localStorage[mallaCustom+'_CUSTOM'] = JSON.stringify(customRamosProps);
+    ramo.isCustom = true;
+    ramo.addToCustomTable();
     ramo.selectRamo();
     $('#crearRamoModal').modal('hide')
 
@@ -248,14 +247,14 @@ function crearRamo() {
 
 function borrarRamo(sigla) {
     SELECTED.forEach(ramo => {
-        if (ramo.sigla == sigla)
+        if (ramo.sigla === sigla)
             ramo.selectRamo();
     });
-    let ramo = all_ramos[sigla]
+    let ramo = all_ramos[sigla];
     delete all_ramos[ramo.sigla];
-    custom_ramos.delete(ramo.sigla)
+    custom_ramos.delete(ramo.sigla);
     delete customRamosProps[ramo.sigla];
-    localStorage[mallaCustom+'_CUSTOM'] = JSON.stringify(customRamosProps)
+    localStorage[mallaCustom+'_CUSTOM'] = JSON.stringify(customRamosProps);
     saveSemester();
 }
 
@@ -264,93 +263,93 @@ function updateCustomTable(){
         let selected = false;
         let semesterSelected;
         ramo = all_ramos[ramo];
-        let fila = d3.select('#CUSTOM-' + ramo.sigla)
+        let fila = d3.select('#CUSTOM-' + ramo.sigla);
         
         SELECTED.forEach(selectedRamo => {
-            if (selectedRamo == ramo)
+            if (selectedRamo === ramo)
             selected = true;
         });
-        for (var s in ramosSemestres) {
-            if (ramosSemestres[s].indexOf(ramo.sigla) != -1 && Number(s) != semestre) {
-                semesterSelected = s
+        for (const s in ramosSemestres) {
+            if (ramosSemestres[s].indexOf(ramo.sigla) !== -1 && Number(s) !== semestre) {
+                semesterSelected = s;
                 break;
             }
         }
         
         if (fila._groups[0][0]) {
-            let state = d3.select('#state-' + ramo.sigla)
+            let state = d3.select('#state-' + ramo.sigla);
             let addButton = d3.select('#add-' + ramo.sigla);
             let deleteButton = d3.select('#delete-' + ramo.sigla);
-            let deletetip= d3.select('#deletetip-' + ramo.sigla)
+            let deletetip= d3.select('#deletetip-' + ramo.sigla);
             // display new ramo info
-            d3.select('#C-name-' + ramo.sigla).text(ramo.nombre)
-            d3.select('#C-credits-' + ramo.sigla).text(ramo.creditos)
-            let preText = ''
+            d3.select('#C-name-' + ramo.sigla).text(ramo.nombre);
+            d3.select('#C-credits-' + ramo.sigla).text(ramo.creditos);
+            let preText = '';
             ramo.prer.forEach(sigla => {
-                if (preText == '') {
+                if (preText === '') {
                     preText = sigla
                 } else {
                     preText += ', ' + sigla 
                 }
-            })
-                d3.select('#C-prer-' + ramo.sigla).text(preText)
+            });
+                d3.select('#C-prer-' + ramo.sigla).text(preText);
             // update action buttons
-            let tooltipText =  'El ramo esta asignado a un semestre anterior o es pre-requisito de otro'
+            let tooltipText =  'El ramo esta asignado a un semestre anterior o es pre-requisito de otro';
             if (semesterSelected) {
-                if (semestre == semesterSelected) {
-                    state.text('Seleccionado')
+                if (semestre === semesterSelected) {
+                    state.text('Seleccionado');
                     addButton.attr('disabled', null).text('De-Seleccionar Ramo');
                     if (ramo.isAPrer()) {
-                        deletetip.attr('data-original-title', tooltipText)
+                        deletetip.attr('data-original-title', tooltipText);
                         deleteButton.attr('disabled', 'disabled')
                             .style('pointer-events','none')
                     } else {
-                        deletetip.attr('data-original-title', '')
+                        deletetip.attr('data-original-title', '');
                         deleteButton.attr('disabled',null)
                             .style('pointer-events',null);
                     }
                 } else if (semestre < semesterSelected){
-                    state.text('No Seleccionado')
+                    state.text('No Seleccionado');
                     addButton.attr('disabled', null).text('Seleccionar Ramo');
                     if (ramo.isAPrer()) {
-                        deletetip.attr('data-original-title', tooltipText)
+                        deletetip.attr('data-original-title', tooltipText);
                         deleteButton.attr('disabled', 'disabled')
                             .style('pointer-events','none')
                     } else {
-                        deletetip.attr('data-original-title', '')
+                        deletetip.attr('data-original-title', '');
                         deleteButton.attr('disabled',null)
                             .style('pointer-events',null);
                     }
                 } else {
-                    state.text('Asignado a S'+ semesterSelected)
+                    state.text('Asignado a S'+ semesterSelected);
                     addButton.attr('disabled', 'disabled').text('Seleccionar Ramo');
-                    deletetip.attr('data-original-title', tooltipText)
+                    deletetip.attr('data-original-title', tooltipText);
                     deleteButton.attr('disabled', 'disabled')
 				        .style('pointer-events','none')
 
                 }
             } else if (selected) {
-                state.text('Seleccionado')
+                state.text('Seleccionado');
                 addButton.attr('disabled', null).text('De-Seleccionar Ramo');
                 if (ramo.isAPrer()) {
-                    deletetip.attr('data-original-title', 'El ramo esta seleccionado en otro semestre o es pre-requisito de otro')
+                    deletetip.attr('data-original-title', 'El ramo esta seleccionado en otro semestre o es pre-requisito de otro');
                     deleteButton.attr('disabled', 'disabled')
 				        .style('pointer-events','none')
                 } else {
-                    deletetip.attr('data-original-title', '')
+                    deletetip.attr('data-original-title', '');
                     deleteButton.attr('disabled',null)
 				        .style('pointer-events',null);
                 }
             
             } else {
-                state.text('No Seleccionado')
+                state.text('No Seleccionado');
                 addButton.attr('disabled', null).text('Seleccionar Ramo');
                 if (ramo.isAPrer()) {
-                    deletetip.attr('data-original-title', 'El ramo esta seleccionado en otro semestre o es pre-requisito de otro')
+                    deletetip.attr('data-original-title', 'El ramo esta seleccionado en otro semestre o es pre-requisito de otro');
                     deleteButton.attr('disabled', 'disabled')
 				        .style('pointer-events','none')
                 } else {
-                    deletetip.attr('data-original-title', '')
+                    deletetip.attr('data-original-title', '');
                     deleteButton.attr('disabled',null)
 				        .style('pointer-events',null);
                 }
@@ -369,26 +368,25 @@ function deleteRamofromTable(sigla) {
 // Crear ramo avanzado
 function fillSelections() {
     // fillSector()
-    let sectorSelector = d3.select('#elegirSector')
-    for (sector in all_sectors) {
-        let sectorName = all_sectors[sector][1]
+    let sectorSelector = d3.select('#elegirSector');
+    for (let sector in all_sectors) {
+        let sectorName = all_sectors[sector][1];
         let selection = sectorSelector.append('option');
         selection.attr('value', sector)
         .text(sectorName)
     }
-    let ramosSelectors = [d3.select('#agregarPreRequisitos'), d3.select('#agregarConvalidaciones')]
+    let ramosSelectors = [d3.select('#agregarPreRequisitos'), d3.select('#agregarConvalidaciones')];
     for (let selector in ramosSelectors) {
         ramosSelectors[selector].append('option')
             .attr('value', '0')
             .text('Elige los pre-requisitos')    
     }
     for (let ramo in all_ramos) {
-        let nombreRamo = all_ramos[ramo].nombre
-        let siglaRamo = ramo
+        let nombreRamo = all_ramos[ramo].nombre;
         for (let selector in ramosSelectors) {
             let selection = ramosSelectors[selector].append('option');
             selection.attr('onclick', 'addTo(' + ramosSelectors[selector].attr("id") + ',' + ramo + ')')
-                .attr('value', siglaRamo)
+                .attr('value', ramo)
                 .text(nombreRamo)
         }
     }
@@ -396,8 +394,8 @@ function fillSelections() {
 }
 //
 function addTo(id) {
-    let toBeAdded, siglaRamo, selectionId, checked
-    checked = $('#advEditorEnabler').prop('checked')
+    let toBeAdded, siglaRamo, selectionId, checked;
+    checked = $('#advEditorEnabler').prop('checked');
     if (d3.select('#editorEnablerDiv').classed('d-none')){
         checked = null
     } else if (checked) {
@@ -405,29 +403,29 @@ function addTo(id) {
     } else {
         checked = true
     }
-    if (id == "agregarPreRequisitos") {
+    if (id === "agregarPreRequisitos") {
         toBeAdded = d3.select('#preRequisitos').append('li');
-        siglaRamo = $('#agregarPreRequisitos').val()
-        editedPrer.add(siglaRamo)
+        siglaRamo = $('#agregarPreRequisitos').val();
+        editedPrer.add(siglaRamo);
         d3.select('#agregarPreRequisitos').select('[value="' + siglaRamo + '"]')
-            .attr('disabled', true)
-        $('#agregarPreRequisitos').val(0)
+            .attr('disabled', true);
+        $('#agregarPreRequisitos').val(0);
         selectionId = "pre-" + siglaRamo
-    } else if (id == "agregarConvalidaciones") {
+    } else if (id === "agregarConvalidaciones") {
         toBeAdded = d3.select('#convalidaciones').append('li');
-        siglaRamo = $('#agregarConvalidaciones').val()
+        siglaRamo = $('#agregarConvalidaciones').val();
         d3.select('#agregarConvalidaciones').select('[value="' + siglaRamo + '"]')
         .attr('disabled', true)
-        $('#agregarConvalidaciones').val(0)
+        $('#agregarConvalidaciones').val(0);
         selectionId = "con-" + siglaRamo
     }
-    nombreRamo = all_ramos[siglaRamo].nombre
+    let nombreRamo = all_ramos[siglaRamo].nombre;
     toBeAdded.classed('list-group-item', true)
         .classed('d-flex', true)
         .classed('align-items-center', true)
         .classed('pr-0', true)
         .classed('py-0', true)
-        .attr('id','pre-'+ siglaRamo)
+        .attr('id','pre-'+ siglaRamo);
     toBeAdded.append('p')
         .classed('flex-grow-1', true)
         .classed('h-100', true)
@@ -435,7 +433,7 @@ function addTo(id) {
         .classed('ml-n2', true)
         .classed('py-2', true)
         .classed('mb-0', true)
-        .text(siglaRamo + ' | ' + nombreRamo)
+        .text(siglaRamo + ' | ' + nombreRamo);
     toBeAdded.append('button')
         .classed('btn', true)
         .classed('btn-danger', true)
@@ -456,8 +454,8 @@ function editorEnabler(toEnable) {
             
             d3.selectAll('.deleter')
             .attr('disabled', null);
-            d3.select('#agregarPreRequisitos').attr('disabled', null)
-            d3.select('#agregarConvalidaciones').attr('disabled', null)
+            d3.select('#agregarPreRequisitos').attr('disabled', null);
+            d3.select('#agregarConvalidaciones').attr('disabled', null);
             d3.select('#elegirSector').attr('disabled', null)
             
         } else {
@@ -466,7 +464,7 @@ function editorEnabler(toEnable) {
             // d3.select('#agregarPreRequisitos').attr('disabled', true)
             // d3.select('#agregarConvalidaciones').attr('disabled', true)
             // d3.select('#elegirSector').attr('disabled', true)
-            let ramo = all_ramos[document.getElementById('custom-siglaa').value]
+            let ramo = all_ramos[document.getElementById('custom-siglaa').value];
             loadRamoAdvanced(ramo.sector, ramo.prer)
             
         }
@@ -474,17 +472,17 @@ function editorEnabler(toEnable) {
 
 function removeItem(id, idToRemove) {
     // currentSelectionsId = id.slice(7)
-    let siglaRamo = idToRemove.slice(4)
-    editedPrer.delete(siglaRamo)
+    let siglaRamo = idToRemove.slice(4);
+    editedPrer.delete(siglaRamo);
     d3.select('#' + id).select('[value="' + siglaRamo + '"]')
-    .attr('disabled', null)
+    .attr('disabled', null);
     d3.select('#'+ idToRemove).remove()
 }
 
 function fillSector() {
-    let sectorList = d3.select("#sectors")
-    for (var sector in all_sectors) {
-        let isTextColorWhite = getLightPercentage(all_sectors[sector][0])
+    let sectorList = d3.select("#sectors");
+    for (const sector in all_sectors) {
+        let isTextColorWhite = getLightPercentage(all_sectors[sector][0]);
         // console.log(all_sectors[sector][1], all_sectors[sector][0], isTextColorWhite)
         sectorList.append('button')
             .classed('list-group-item', true)
@@ -495,7 +493,7 @@ function fillSector() {
             .attr('onclick', 'editSector("' + sector + '")')
             .attr('id','sec-' + sector)
             .style('background-color', all_sectors[sector][0])
-            .text(all_sectors[sector][1])
+            .text(all_sectors[sector][1]);
         $("#sec-" + sector).hover(function(){
             $(this).css("filter", "brightness(85%)");
             }, function(){
@@ -506,36 +504,36 @@ function fillSector() {
 
 
 function editSector(sector) {
-    let sectorName = all_sectors[sector][1]
-    let sectorColor = all_sectors[sector][0]
-    document.getElementById('sectorName').value = sectorName
-    document.getElementById('smallSectorName').value = sector
-    d3.select('#smallSectorName').attr('disabled', true)
-    document.getElementById('sectorColor').value = sectorColor
-    d3.select('#crearSector').text('Editar grupo de ramos')
-    $('#crearSectorModal').modal('show')
+    let sectorName = all_sectors[sector][1];
+    let sectorColor = all_sectors[sector][0];
+    document.getElementById('sectorName').value = sectorName;
+    document.getElementById('smallSectorName').value = sector;
+    d3.select('#smallSectorName').attr('disabled', true);
+    document.getElementById('sectorColor').value = sectorColor;
+    d3.select('#crearSector').text('Editar grupo de ramos');
+    $('#crearSectorModal').modal('show');
     d3.select("#sectorDoneButton").attr('onclick', 'finishedEditingSector("#sec-' + sector + '")')
 }
 
 function finishedEditingSector(sectorId) {
-    let sector = document.getElementById('smallSectorName').value
-    let sectorColor = document.getElementById('sectorColor').value
-    let sectorName = document.getElementById('sectorName').value
-    let whiteText = getLightPercentage(sectorColor)
+    let sector = document.getElementById('smallSectorName').value;
+    let sectorColor = document.getElementById('sectorColor').value;
+    let sectorName = document.getElementById('sectorName').value;
+    let whiteText = getLightPercentage(sectorColor);
     d3.select(sectorId)
         .classed('text-white', whiteText)
         .style('background-color', sectorColor)
-        .text(sectorName)
-    $('#crearSectorModal').modal('hide')
+        .text(sectorName);
+    $('#crearSectorModal').modal('hide');
     saveSector(sector, sectorName, sectorColor)
 }
 
 
 function finishedCreatingSector() {    
-    let sectorName = String(document.getElementById('sectorName').value)
-    let sectorSmallName = String(document.getElementById('smallSectorName').value)
-    let sectorColor = String(document.getElementById('sectorColor').value)
-    let isTextColorWhite = getLightPercentage(sectorColor)
+    let sectorName = String(document.getElementById('sectorName').value);
+    let sectorSmallName = String(document.getElementById('smallSectorName').value);
+    let sectorColor = String(document.getElementById('sectorColor').value);
+    let isTextColorWhite = getLightPercentage(sectorColor);
     
     d3.select('#sectors').append('button')
         .classed('list-group-item', true)
@@ -546,14 +544,14 @@ function finishedCreatingSector() {
         .attr('onclick', 'editSector("' + sectorSmallName + '")')
         .attr('id','sec-' + sectorSmallName)
         .style('background-color', sectorColor)
-        .text(sectorName)
+        .text(sectorName);
     $("#sec" + sectorSmallName).hover(function(){
         $(this).css("filter", "brightness(85%)");
         }, function(){
             $(this).css("filter", "brightness(100%)");
     });
     
-    $('#crearSectorModal').modal('hide')
+    $('#crearSectorModal').modal('hide');
     saveSector(sectorSmallName, sectorName, sectorColor)
 
     
@@ -561,112 +559,114 @@ function finishedCreatingSector() {
 
 
 function editRamo(sigla) {
-    d3.select('#titleRamoAvanzado').text('Editar Ramo')
-    d3.select('#editorEnablerDiv').classed('d-none', false)
-    $('#advEditorEnabler').prop('checked', false)
-    let ramo = all_ramos[sigla]
-    $('#preChecker').prop('checked', false).prop("disabled", true)
-    $('#conChecker').prop('checked', false).prop("disabled", true)
-    $('#custom-siglaa').prop("disabled", true)
-    $('#crearRamoAvanzado').modal('show')
+    d3.select('#titleRamoAvanzado').text('Editar Ramo');
+    d3.select('#editorEnablerDiv').classed('d-none', false);
+    $('#advEditorEnabler').prop('checked', false);
+    let ramo = all_ramos[sigla];
+    $('#preChecker').prop('checked', false).prop("disabled", true);
+    $('#conChecker').prop('checked', false).prop("disabled", true);
+    $('#custom-siglaa').prop("disabled", true);
+    $('#crearRamoAvanzado').modal('show');
     
-    document.getElementById('custom-siglaa').value = ramo.sigla
-    document.getElementById('custom-creditsa').value = ramo.creditos
-    document.getElementById('custom-namea').value = ramo.nombre
+    document.getElementById('custom-siglaa').value = ramo.sigla;
+    document.getElementById('custom-creditsa').value = ramo.creditos;
+    document.getElementById('custom-namea').value = ramo.nombre;
     d3.select('#advancedRamoButton')
         .attr('onclick','finishedEditingRamo(true)')
-        .text('Guardar cambios')
+        .text('Guardar cambios');
     loadRamoAdvanced(ramo.sector, ramo.prer)
 }
 
 
 
 function cleanRamoAdvanced(sectorState, preState, conState) {
-    d3.select('#elegirSector').attr('disabled', sectorState).selectAll('option').remove()
-    d3.select('#agregarPreRequisitos').attr('disabled', preState).selectAll('option').remove()
-    d3.select('#agregarConvalidaciones').attr('disabled', conState).selectAll('option').remove()
-    d3.select('#preRequisitos').selectAll('li').remove()
+    d3.select('#elegirSector').attr('disabled', sectorState).selectAll('option').remove();
+    d3.select('#agregarPreRequisitos').attr('disabled', preState).selectAll('option').remove();
+    d3.select('#agregarConvalidaciones').attr('disabled', conState).selectAll('option').remove();
+    d3.select('#preRequisitos').selectAll('li').remove();
     d3.select('#convalidaciones').selectAll('li').remove()
 }
 
 function loadRamoAdvanced(sector, prer, conv=new Set()) {
 
-    cleanRamoAdvanced(true, true, true)
-    fillSelections()
+    cleanRamoAdvanced(true, true, true);
+    fillSelections();
 
-    d3.select('#elegirSector').select('[value="'+sector+'"]').attr('selected', true)
+    d3.select('#elegirSector').select('[value="'+sector+'"]').attr('selected', true);
     prer.forEach( function(ramo) {
-        $('#agregarPreRequisitos').val(ramo)
+        $('#agregarPreRequisitos').val(ramo);
         addTo("agregarPreRequisitos")
     });
     conv.forEach( function(ramo) {
-        $('#agregarConvalidaciones').val(ramo)
+        $('#agregarConvalidaciones').val(ramo);
         addTo("agregarConvalidaciones")
     });
 }
 
 function finishedEditingRamo(bool) {
-    sigla = document.getElementById('custom-siglaa').value
-    ramoToApplyEdits = all_ramos[sigla]
-    ramoToApplyEdits.nombre = document.getElementById('custom-namea').value
-    ramoToApplyEdits.creditos = Number(document.getElementById('custom-creditsa').value)
+    let sigla = document.getElementById('custom-siglaa').value;
+    let ramoToApplyEdits = all_ramos[sigla];
+    ramoToApplyEdits.nombre = document.getElementById('custom-namea').value;
+    ramoToApplyEdits.creditos = Number(document.getElementById('custom-creditsa').value);
     if ($('#advEditorEnabler').prop('checked')) {
-        ramoToApplyEdits.sector = $('#elegirSector').val()
+        ramoToApplyEdits.sector = $('#elegirSector').val();
         ramoToApplyEdits.prer.forEach(sigla => {
             all_ramos[sigla].removeReq()
-        })
-        ramoToApplyEdits.prer = new Set(editedPrer)
+        });
+        ramoToApplyEdits.prer = new Set(editedPrer);
         ramoToApplyEdits.prer.forEach(sigla => {
             all_ramos[sigla].addReq()
         })
     }
-    let customizedRamo = ['','','','','','']
+    let customizedRamo = ['','',0,{},'',''];
 
-        customizedRamo[0] = ramoToApplyEdits.nombre
-        customizedRamo[1] = ramoToApplyEdits.sigla
-        customizedRamo[2] = ramoToApplyEdits.creditos
-        customizedRamo[3] = ramoToApplyEdits.sector
-            
-        let fakeColorBySector = {[customizedRamo[3]] : all_sectors[customizedRamo[3]]}
-        customizedRamo[4] = fakeColorBySector
-        customizedRamo[5] = Array.from(ramoToApplyEdits.prer)
+    customizedRamo[0] = ramoToApplyEdits.nombre;
+    customizedRamo[1] = ramoToApplyEdits.sigla;
+    customizedRamo[2] = ramoToApplyEdits.creditos;
+    customizedRamo[3] = ramoToApplyEdits.sector;
+    customizedRamo[4] = {[customizedRamo[3]]: all_sectors[customizedRamo[3]]};
+    customizedRamo[5] = Array.from(ramoToApplyEdits.prer);
 
-        customRamosProps[sigla] = customizedRamo;
-        custom_ramos.add(sigla);
-        localStorage[mallaCustom+'_CUSTOM'] = JSON.stringify(customRamosProps)
-        if (d3.select('#CUSTOM-'+sigla)._groups[0][0] == null && !ramoToApplyEdits.isCustom){
-            ramoToApplyEdits.addToCustomTable()
-        }
-            // cleanRamoAdvanced(null, null, null)
+    customRamosProps[sigla] = customizedRamo;
+    custom_ramos.add(sigla);
+    localStorage[mallaCustom+'_CUSTOM'] = JSON.stringify(customRamosProps);
+    if (d3.select('#CUSTOM-'+sigla)._groups[0][0] == null && !ramoToApplyEdits.isCustom){
+        ramoToApplyEdits.addToCustomTable()
+    }
+    updateGenerator(sigla)
+    // cleanRamoAdvanced(null, null, null)
 
-        $('#crearRamoAvanzado').modal('hide')
+    $('#crearRamoAvanzado').modal('hide')
 
 }
-
+function updateGenerator(sigla) {
+    d3.select('#per-' + sigla).select('div').text(all_ramos[sigla].nombre)
+}
 
 function createRamoAdvanced() {
 
-    let sigla = document.getElementById('custom-siglaa').value
-    let nombre = document.getElementById('custom-namea').value
-    let creditos = Number(document.getElementById('custom-creditsa').value)
-    let sector = $('#elegirSector').val()
-    let prer = new Set(editedPrer)
+    let sigla = document.getElementById('custom-siglaa').value;
+    let nombre = document.getElementById('custom-namea').value;
+    let creditos = Number(document.getElementById('custom-creditsa').value);
+    let sector = $('#elegirSector').val();
+    let prer = new Set(editedPrer);
     
-    let ramo = new CustomRamo(nombre, sigla, creditos, sector, prer, id, all_sectors)
-    id++
+    let ramo = new CustomRamo(nombre, sigla, creditos, sector, prer, id, all_sectors);
+    id++;
     ramo.prer.forEach(sigla => {
         all_ramos[sigla].addReq()
-    })
-    all_ramos[sigla] = ramo
-    let fakeColorBySector = {[sector]: all_sectors[sector]}
-    prer = Array.from(prer)
-    let customRamo = [nombre,sigla, creditos, sector , fakeColorBySector, prer]
-    custom_ramos.add(sigla)
+    });
+    all_ramos[sigla] = ramo;
+    let fakeColorBySector = {[sector]: all_sectors[sector]};
+    prer = Array.from(prer);
+    let customRamo = [nombre,sigla, creditos, sector , fakeColorBySector, prer];
+    custom_ramos.add(sigla);
 
     // let sector = {"CUSTOM": ["#000000", "Fuera de la malla oficial"]}
     customRamosProps[sigla] = customRamo;
-    localStorage[mallaCustom+'_CUSTOM'] = JSON.stringify(customRamosProps)
-    ramo.addToCustomTable()
+    localStorage[mallaCustom+'_CUSTOM'] = JSON.stringify(customRamosProps);
+    ramo.isCustom = true;
+    ramo.addToCustomTable();
     $('#crearRamoAvanzado').modal('hide')
 
 }
@@ -691,39 +691,39 @@ function isColorDark(bgColor) {
       return Math.pow((col + 0.055) / 1.055, 2.4);
     });
     let L = (0.2126 * c[0]) + (0.7152 * c[1]) + (0.0722 * c[2]);
-    return (L > 0.179) ? false : true;
+    return (L <= 0.179);
 }
 // Modal hidden actions
 $('#crearRamoModal').on('hidden.bs.modal', function (e) {
-    document.getElementById('custom-name').value = ''
-    document.getElementById('custom-sigla').value = ''
+    document.getElementById('custom-name').value = '';
+    document.getElementById('custom-sigla').value = '';
     document.getElementById('custom-credits').value = ''
   })
 
 $('#crearRamoAvanzado').on('hidden.bs.modal', function (e) {
-    document.getElementById('custom-namea').value = ''
-    document.getElementById('custom-siglaa').value = ''
-    document.getElementById('custom-creditsa').value = ''
-    d3.select('#custom-siglaa').attr('disabled', null)
-    d3.select('#titleRamoAvanzado').text('Añadir ramo: Advanced Edition')
-    editedPrer.clear()
-    d3.select('#editorEnablerDiv').classed('d-none', true)
+    document.getElementById('custom-namea').value = '';
+    document.getElementById('custom-siglaa').value = '';
+    document.getElementById('custom-creditsa').value = '';
+    d3.select('#custom-siglaa').attr('disabled', null);
+    d3.select('#titleRamoAvanzado').text('Añadir ramo: Advanced Edition');
+    editedPrer.clear();
+    d3.select('#editorEablerDiv').classed('d-none', true);
     d3.select('#advancedRamoButton')
         .attr('onclick','createRamoAdvanced()')
-        .text('Agregar')
+        .text('Agregar');
     cleanRamoAdvanced(null,null,null)
 
-  })
+  });
 
   $('#crearSectorModal').on('hidden.bs.modal', function (e) {
-    document.getElementById('sectorColor').value = ''
-    document.getElementById('sectorName').value = ''
-    document.getElementById('smallSectorName').value = ''
-    d3.select('#smallSectorName').attr('disabled', null)
-    d3.select('#crearSector').text('Añadir grupo de Ramos')
+    document.getElementById('sectorColor').value = '';
+    document.getElementById('sectorName').value = '';
+    document.getElementById('smallSectorName').value = '';
+    d3.select('#smallSectorName').attr('disabled', null);
+    d3.select('#crearSector').text('Añadir grupo de Ramos');
     d3.select('#sectorDoneButton').attr('onclick', 'finishedCreatingSector()')
 
-  })
+  });
 
   // Guardado de sectores y ramos editados
 
@@ -736,9 +736,9 @@ $('#crearRamoAvanzado').on('hidden.bs.modal', function (e) {
 
 
 
-    let sector = [sectorColor, sectorName]
-    all_sectors[sectorId] = sector
-    customSectors[sectorId] = sector
-    let id = mallaCustom + '_SECTORS'
+    let sector = [sectorColor, sectorName];
+    all_sectors[sectorId] = sector;
+    customSectors[sectorId] = sector;
+    let id = mallaCustom + '_SECTORS';
     localStorage.setItem(id, JSON.stringify(customSectors));
   }

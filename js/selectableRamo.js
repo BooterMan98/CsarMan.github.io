@@ -1,24 +1,27 @@
-var APPROVED = [];
+//const APPROVED = [];
 var SELECTED = [];
 
 // Clase hijo de ramo, al clickear el ramo, este se selecciona en vez de aprobar
 // Aprobar el ramo sigue siendo posible,
 // pero ahora queda a discreción del desarrollador el como accionarlo
 function SelectableRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySector) {
-	this.base = Ramo
-	this.base(nombre, sigla, creditos, sector, prer, id, colorBySector)
+	this.base = Ramo;
+	this.base(nombre, sigla, creditos, sector, prer, id, colorBySector);
 	this.selected = false;
-	this.isCustom = false
+	this.isCustom = false;
 	let self = this;
   	// let ramo = this.ramo;
 
     this.draw = function(canvas, posX, posY, scaleX, scaleY) {
 		self.ramo = canvas.append('g')
 			.attr('id', self.sigla);
-		var sizeX = 100 * scaleX,
-			sizeY = 100 * scaleY
-		var graybar = sizeY/5;
-
+		const sizeX = 100 * scaleX,
+			sizeY = 100 * scaleY;
+		const graybar = sizeY / 5;
+		let creditos = self.creditos
+		if (sct) {
+			creditos = Math.ceil(creditos * 1.6)
+		}
 		self.ramo.append("rect")
 			.attr("x", posX)
 			.attr("y", posY)
@@ -32,7 +35,9 @@ function SelectableRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySec
 			.attr("y", posY)
 			.attr("width", sizeX*1.2)
 			.attr("height", graybar)
-			.attr("fill", '#6D6E71');
+            .attr("fill", '#6D6E71')
+			.classed('bars', true);
+            
 
 		// below bar
 		self.ramo.append("rect")
@@ -40,7 +45,8 @@ function SelectableRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySec
 			.attr("y", posY + sizeY - graybar)
 			.attr("width", sizeX*1.2)
 			.attr("height", graybar)
-			.attr("fill", '#6D6E71');
+			.attr("fill", '#6D6E71')
+			.classed('bars', true);
 
 		// credits rect
 		self.ramo.append("rect")
@@ -52,7 +58,7 @@ function SelectableRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySec
 		self.ramo.append("text")
 			.attr("x", posX + sizeX*1.2 - 17 * scaleX)
 			.attr("y", posY + sizeY - 6 * scaleY)
-			.text(self.creditos)
+			.text(creditos)
 			.attr("font-family", "sans-serif")
 			.attr("font-weight", "regular")
 			.attr("fill", "black")
@@ -111,7 +117,7 @@ function SelectableRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySec
 			.attr("class", "selected");
 
 
-		var cross = self.ramo.append('g').attr("class", "cross").attr("opacity", 0);
+		let cross = self.ramo.append('g').attr("class", "cross").attr("opacity", 0);
 		cross.append("path")
 			.attr("d", "M" + posX + "," + posY + "L" + (posX+sizeX*1.1) + "," + (posY+sizeY))
 			.attr("stroke", "#550000")
@@ -126,7 +132,7 @@ function SelectableRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySec
 		self.ramo.append("text")
 			.attr("x", function() {
 				if (self.id > 9)
-					return posX + sizeX*1.2 - 10
+					return posX + sizeX*1.2 - 10;
 				return posX + sizeX*1.2 - 10.5
 			})
 			.attr("y", posY + graybar/2 + 3)
@@ -169,13 +175,13 @@ function SelectableRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySec
         // Ahora se selecciona en vez de aprobar
 		self.ramo.on('click', self.selectRamo);
 
-		return;
-	}
+
+	};
 
 
     // NEW!!!
   this.selectRamo = function() {
-        
+
 		if (self.isApproved()) { // Si el ramo esta aprovado, no se selecciona
 			if (!custom_ramos.has(this.sigla)) {
 			d3.select("#" + self.sigla).select(".selected").attr('stroke','red');
@@ -189,6 +195,12 @@ function SelectableRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySec
   	}
         
 		if (!self.selected) { // Ramo se ha seleccionado
+
+			let creditos = self.creditos
+			if (sct) {
+				creditos = Math.ceil(creditos * 1.6)
+			}
+
 				if (!custom_ramos.has(this.sigla))
 					d3.select("#" + self.sigla).select(".selected").transition().delay(20).attr("opacity", ".8");
 				
@@ -220,13 +232,13 @@ function SelectableRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySec
 					.attr('class','input-group-append')
 					.append('span')
 						.attr('class','input-group-text')
-					.text('x ' + self.creditos + ' creditos');
+					.text('x ' + creditos + ' creditos');
 				card.transition().duration(300).style("opacity", "1");
 		} else { // Ramo ya no esta seleccionado
 			if (!custom_ramos.has(this.sigla))
 				d3.select("#" + self.sigla).select(".selected").transition().delay(20).attr("opacity", "0.01");
 			
-				let _i = SELECTED.indexOf(self)
+				let _i = SELECTED.indexOf(self);
 			if (_i > -1) {
 				SELECTED.splice(_i, 1);
 			}
@@ -235,11 +247,11 @@ function SelectableRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySec
 
 		}
 		self.selected = !self.selected;
-	}
+	};
 
 	this.isSelected = function() {
 		return self.selected;
-	}
+	};
 
     // Ligero cambio en la opacidad
 	this.verifyPrer = function() {
@@ -277,4 +289,4 @@ function SelectableRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySec
 }
 
 
-SelectableRamo.prototype = Ramo
+SelectableRamo.prototype = Ramo;
