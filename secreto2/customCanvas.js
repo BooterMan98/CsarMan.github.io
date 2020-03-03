@@ -86,53 +86,6 @@ var total_creditos = 0;
 var total_ramos = 0;
 let id = 1;
 
-
-
-
-
-
-
-
-function getLightPercentage(colorHex) {
-    // Convert hex to RGB first
-    let r = 0, g = 0, b = 0;
-    if (colorHex.length == 4) {
-      r = "0x" + colorHex[1] + colorHex[1];
-      g = "0x" + colorHex[2] + colorHex[2];
-      b = "0x" + colorHex[3] + colorHex[3];
-    } else if (colorHex.length == 7) {
-      r = "0x" + colorHex[1] + colorHex[2];
-      g = "0x" + colorHex[3] + colorHex[4];
-      b = "0x" + colorHex[5] + colorHex[6];
-    }
-    // console.log(r,g,b)
-    // Then to HSL
-    rgb = [0,0,0]
-    rgb[0] = r / 255;
-    rgb[1] = g / 255;
-    rgb[2] = b / 255;
-
-    for (let color in rgb) {
-        if (rgb[color] <= 0.03928) {
-            rgb[color] /= 12.92
-        } else {
-            rgb[color] = Math.pow(((rgb[color] + 0.055) / 1.055), 2.4)
-        }
-
-    }
-
-    // c <= 0.03928 then c = c/12.92 else c = ((c+0.055)/1.055) ^ 2.4
-    let l = 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]
-    // console.log(l)
-    if (l > 0.6) { // segun el standard, l > 0.179... pero no me gustan los resultados de eso :( 
-        return false
-    } else {
-        return true
-    }
-}
-
-
-
 $("#carrera").text(carreras[current_malla]);
 
 /* PC: Plan común
@@ -155,13 +108,11 @@ function main_function(error, data, colorBySector) {
 		return;
 	}
 	// load the data
-	
 	// Agregado de sectores fuera de malla
+
 	let customCache = JSON.parse(localStorage['Custom-'+ current_malla + '_CUSTOM'])
 	for (var sigla in customCache) {
-		// una parte es para acceder al diccionario que contiene las propiedades del sector
-		colorBySector[customCache[sigla][3]] = customCache[sigla][4][customCache[sigla][3]]
-		// la otra parte es la sigla para acceder
+		colorBySector[customCache[sigla][3]] = customCache[sigla][4][customCache[sigla][3]] // Si no entiende, no lo haga
 	}
 	
 	let longest_semester = 0;
@@ -175,23 +126,17 @@ function main_function(error, data, colorBySector) {
 
 		});
 	}
-	
-	// agregado de ramos fuera de malla
 	let customRamosProps = JSON.parse(localStorage['Custom-' + current_malla +"_CUSTOM"])
 	for (var sigla in customRamosProps) {
 		// inicializar ramos fuera de malla
 		let datosRamo = customRamosProps[sigla]
-		let prer = []
-        if (datosRamo.length == 6) {
-            prer = datosRamo[5]
-        }
-		let ramo = new Ramo(datosRamo[0],datosRamo[1], Number(datosRamo[2]),datosRamo[3],prer, id,colorBySector);
+		let ramo = new Ramo(datosRamo[0],datosRamo[1], Number(datosRamo[2]),datosRamo[3],[],id,datosRamo[4]);
 		id++;
 		all_ramos[sigla] = ramo
 	}
-
-// se crea la malla de acorde al usuario
+	// agregado de ramos fuera de malla
 	let customMalla = JSON.parse(localStorage['Custom-' + current_malla + '_SEMESTRES'])
+	
 	for (var semester in customMalla) {
 		malla[semester] = {}
 		let c = 0
@@ -204,6 +149,8 @@ function main_function(error, data, colorBySector) {
 		if (c > longest_semester)
 			longest_semester = c;
 	}
+	// cargado de malla personalizada
+
 
 	// update width y height debido a que varian segun la malla
 		// + 10 para evitar ocultamiento de parte de la malla
@@ -262,6 +209,16 @@ function main_function(error, data, colorBySector) {
 	drawer.selectAll(".ramo-label")
 		.call(wrap, 115 * scaleX, (100 - 100/5*2) * scaleY);
 
+	// verificar cache
+	// if (d3.select(".canvas")._groups[0][0] == null) {
+	// 	var cache_variable = 'approvedRamos_' + current_malla;
+	// 	if (cache_variable in localStorage && localStorage[cache_variable] !== "") {
+	// 		let approvedRamos = localStorage[cache_variable].split(",");
+	// 		approvedRamos.forEach(function(ramo) {
+	// 			all_ramos[ramo].approveRamo();
+	// 		});
+	// 	}
+	// }
 
 	// verificar prerrequisitos
 	d3.interval(function() {
@@ -279,24 +236,52 @@ function main_function(error, data, colorBySector) {
 		d3.select(".info").select("#creditos").text(`${current_credits} (${parseInt((current_credits/total_creditos)*100)}%), Total ramos: ${parseInt(current_ramos*100/total_ramos)}%`);
 	}, 30);
 
+	// filling the cache!
+	// d3.interval(function() {
+	// 	if (d3.select(".priori-canvas")._groups[0][0] == null) { 
+	// 	let willStore = []
+	// 	APPROVED.forEach(function(ramo) {
+	// 		willStore.push(ramo.sigla);
+	// 	});
+	// 	localStorage[cache_variable] = willStore;
+	// 	}
+	// }, 2000);
 
-    var first_time = d3.select(canvas.node().parentNode); // volvemos a canvas/ priori-canvas
-	first_time = first_time.append("div")
-	  .classed("row no-gutters justify-content-center", true)
-	  .attr("id", "overlay")
-	  .append("div");
-	first_time.classed("col", true)
-	.style("max-width","650px");
-	first_time.append('h3')
-	  .classed('text-center py-5 px-3', true)
-	  .text(welcomeTitle);
-	first_time.append("img")
-	  .property("src","/data/ramo.svg")
-	  .style("width", "300px")
-	first_time.append("h5")
-	  .classed("text-center py-5 px-3", true)
-	  .text(welcomeDesc)
-	  first_time = d3.select(first_time.node().parentNode)
+
+
+
+	var first_time = canvas.append("g")
+	first_time.append("rect")
+		.attr("x", 0)
+		.attr("y", 0)
+		.attr("width", width)
+		.attr("height", height)
+		.attr("fill", "white")
+		.attr("opacity", 0.9);
+	first_time.append("text")
+		.attr("x", width/2)
+		.attr("y", height/2 - 180 * scaleY)
+		.attr("dy", 0)
+		.attr("text-anchor", "middle")
+		.attr("font-size", 40* scaleX)
+		.attr("opacity", 0.01)
+		.text(welcomeTitle)
+		.transition().duration(800)
+		.attr("y", height/2)
+		.attr("opacity", 1)
+		.call(wrap, width * scaleX, height);
+	first_time.append("text")
+		.attr("x", width/2)
+		.attr("y", height/2 - 90 * scaleY)
+		.attr("dy", "2.1em")
+		.attr("text-anchor", "middle")
+		.attr("font-size", 30*scaleX)
+		.attr("opacity", 0.01)
+		.text(welcomeDesc)
+		.transition().duration(800)
+		.attr("y", height/2)
+		.attr("opacity", 1)
+		.call(wrap, width * scaleX, height);
 
 	first_time.on('click', function() {
 		d3.select(this).transition().duration(200).style('opacity', 0.1).on('end', function() {
@@ -320,7 +305,7 @@ function wrap(text, width, height) {
         lineHeight = 1.1, // ems
         y = text.attr("y"),
 				dy = parseFloat(text.attr("dy")),
-				fontsize = parseInt(text.attr("font-size"), 10),
+				fontsize = Number(text.attr("font-size")),
 				tspan = text.text(null).append("tspan").attr("x", text.attr("x")).attr("y", y).attr("dy", dy + "em"),
 				textLines,
 				textHeight;

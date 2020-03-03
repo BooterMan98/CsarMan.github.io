@@ -1,56 +1,54 @@
 <!DOCTYPE HTML>
 <html lang="es-CL">
   <head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-140369062-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-140369062-1');
-  </script>
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-M5LWCHD');</script>
-  <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Malla Interactiva | Calculo prioridad</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/darkMode.css">
-    <link rel="stylesheet" href="/css/styles.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet"> 
+    <title>Ramos | Calculo prioridad</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.css">    
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet"> 
   <script 
     defer
     src="https://use.fontawesome.com/releases/v5.8.2/js/all.js"
     integrity="sha384-DJ25uNYET2XCl5ZF++U8eNxPWqcKohUUBUpKGlNLMchM7q4Wjg2CUpjHLaL8yYPH" 
     crossorigin="anonymous">
   </script>
-  
+  <link rel="stylesheet" href="/css/styles.css">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-140369062-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-140369062-1');
+  </script> -->
+  <!-- Google Tag Manager -->
+  <!-- <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-M5LWCHD');
+  </script> -->
+  <!-- End Google Tag Manager -->
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="manifest" href="/site.webmanifest">
   <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2f58a7">
-  <meta name="apple-mobile-web-app-title" content="Mallla Interactiva">
-  <meta name="application-name" content="Mallla Interactiva">
   <meta name="msapplication-TileColor" content="#2f58a7">
-  <meta name="theme-color" content="#f8f9fa">
+  <meta name="theme-color" content="#2f58a7">
 </head>
 <body class="d-flex flex-column">
   <!-- En verdad, lamento la cantidad horrorosa de divs -->
   <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M5LWCHD"
+  <!-- <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M5LWCHD"
     height="0" width="0" style="display:none;visibility:hidden"></iframe>
-  </noscript>
+  </noscript> -->
   <!-- End Google Tag Manager (noscript) -->
   <!-- Contact Modal -->
   <div class="modal fade bg-danger"
@@ -74,7 +72,7 @@
         </div>
         <div class="modal-footer bg-light">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <a href="http://github.com/CsarMan/Mallas" class="btn btn-primary"><i class="fas fa-code-branch"></i> Codigo fuente</a>
+          <a href="http://github.com/etra0/ramos" class="btn btn-primary"><i class="fas fa-code-branch"></i> Codigo fuente</a>
           <button type="button" id="contactar" onclick="contactar()" class="btn btn-danger"><i class="fas fa-envelope"></i> Contactar</button>
         </div>
       </div>
@@ -114,7 +112,7 @@
             </small>
           </div>
           <div class="form-group">
-            <label for="newRamo">Creditos USM</label>
+            <label for="newRamo">Creditos</label>
             <input type="number" class="form-control" id="custom-credits" placeholder="1">
           </div>
           <div class="modal-footer">
@@ -131,11 +129,11 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mallaNavbar" aria-controls="mallaNavbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a id='goToHome' class="navbar-brand mb-0 " href="/">Malla Interactiva <span class="carrera"></span></a>
+    <a class="navbar-brand mb-0 " href="/">Malla Interactiva <span class="carrera"></span></a>
         
     <div class="collapse navbar-nav mr-auto navbar-collapse navbar-expand-md " id="mallaNavbar">
-      <a id='goToCalculator' class="nav-link active" href="#">Calculadora Prioridad</a>
-      <a id='goToGenerator' class="nav-link" href="/personalizar/">Generadora Malla</a>
+      <a class="nav-link active" href="#">Calculadora Prioridad</a>
+      <a class="nav-link" href="/personalizar/">Generadora Malla</a>
       <a class="d-none d-md-block nav-link dropdown-toggle" data-toggle="collapse" href="#" data-target="#carreras" aria-controls="carreras" aria-expanded="false" aria-label="Toggle navigation">
         Carreras
       </a>
@@ -160,7 +158,7 @@
   <section class="container-fluid flex-grow-1">
     <!-- Canvas -->
     <div class="row justify-content-center">
-      <div class="col-xl-7 order-1">
+      <div class="col-xl-7 ">
         <div class='priori-canvas' style="text-align:center;overflow-x:auto"></div>		          
         <div class='color-description'
           style="position:relative;display:flex;justify-content:center;flex-wrap:wrap;">
@@ -168,7 +166,7 @@
       </div>
     <!-- Canvas END -->
     <!-- Calculadora -->
-      <div class="col-sm-auto order-3">
+      <div class="col-sm-auto">
         <form id="priorix" class="card mt-3">
           <h4 class="card-header text-center">Calculadora de prioridad</h4>
           <div class="px-3 my-0 py-2">
@@ -216,7 +214,7 @@
                   <i class="fas fa-arrow-left"></i>
                 </button>
               </div>
-              <div class="col-5 col-sm-8">
+              <div class="col-8 col-sm-5">
                 <div class="row justify-content-center no-gutters">
                   <div class="btn-group" role="group">
                     <button
@@ -243,15 +241,20 @@
                 </button>
               </div>
             </div>
+            <div class="card-footer">
+              <button
+                      type="button"
+                      data-toggle="modal"
+                      data-target="#crearRamoModal"
+                      class="btn btn-primary btn-sm">
+                Crear ramo
+              </button>
+            </div>
           </div>
                 <!-- Fin botones -->
         </form>
       </div>
     <!-- Calculadora END -->
-    <div class="col-12 my-3 order-xl-3 order-2 text-center">
-      <h5>Mostrando créditos <span id="credits-system"></span></h5>
-      <button id="credit-system" type="button" onclick="changeCreditsSystem()" class="btn btn-secondary"> Cambiar sistema de créditos </button>
-    </div>
     </div>
     <!-- Ramos Fuera de malla -->
     <div id="anchor" class="row justify-content-center mt-5">
@@ -293,7 +296,7 @@
   <!-- Footer -->
   <footer  class="container-fluid text-center mt-3">        
     <div class="row bg-light align-items-end">
-      <p class="col my-1 text-muted">Creado con el <i class="fas fa-heart"></i>️ por estudiantes para estudiantes <br/> <i class="fas fa-code-branch"></i> <a href="http://github.com/CsarMan/Mallas">Código fuente</a></p>
+      <p class="col my-1 text-muted">Creado con el <i class="fas fa-heart"></i>️ por estudiantes para estudiantes <br/> <i class="fas fa-code-branch"></i> <a href="http://github.com/etra0/ramos">Código fuente</a></p>
     </div>
   </footer>
   <!-- Footer END -->
@@ -311,7 +314,7 @@
     <li><a class="nav-item nav-link" href="?m=${Link}"><span class="d-md-none">Malla </span>${Nombre}</a></li>
   </script>
   <script type="text/template" data-template="tab-template2">
-    <a class="dropdown-item" href="?m=${Link}">Malla ${Nombre}</a>
+    <a class="dropdown-item" href="#${Link}">Malla ${Nombre}</a>
   </script>
   <script>
     var scroll = new SmoothScroll('a[href*="#"]', {

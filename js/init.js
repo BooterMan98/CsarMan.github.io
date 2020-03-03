@@ -17,7 +17,7 @@
 });*/
 
 function contactar() {
-    window.location = "mailto:cpaulang@alumnos.inf.utfsm.cl";
+    window.location = "mailto:sebastian.aedo@sansano.usm.cl"
     $('#contacto').modal('hide')
 }
 
