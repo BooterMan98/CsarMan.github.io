@@ -1,0 +1,336 @@
+<!DOCTYPE HTML>
+<html lang="es-CL">
+  <head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-140369062-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-140369062-1');
+  </script>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-M5LWCHD');</script>
+  <!-- End Google Tag Manager -->
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Primary Meta Tags -->
+  <title>Malla interactiva | Calculo Prioridad</title>
+  <meta name="title" content="Malla interactiva | Calculo prioridad">
+  <meta name="description" content="Calculadora a veces incluso más precisa que SIGA">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://csarman.github.io/malla-interactiva/prioridad">
+  <meta property="og:title" content="Malla interactiva | Calculo Prioridad">
+  <meta property="og:description" content="Calculadora a veces incluso más precisa que SIGA">
+  <meta property="og:image" content="https://csarman.github.io/malla-interactiva/social-image.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+
+  <!-- CSS, Fonts and some scripts -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/darkMode.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet"> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+  <script 
+    defer
+    src="https://use.fontawesome.com/releases/v5.8.2/js/all.js"
+    integrity="sha384-DJ25uNYET2XCl5ZF++U8eNxPWqcKohUUBUpKGlNLMchM7q4Wjg2CUpjHLaL8yYPH" 
+    crossorigin="anonymous">
+  </script>
+  
+  <!-- Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <link rel="mask-icon" href="../safari-pinned-tab.svg" color="#2f58a7">
+  <meta name="apple-mobile-web-app-title" content="Malla Interactiva">
+  <meta name="application-name" content="Malla Interactiva">
+  <meta name="msapplication-TileColor" content="#2f58a7">
+  <meta name="theme-color" content="#f8f9fa">
+
+</head>
+<body class="d-flex flex-column">
+  <!-- En verdad, lamento la cantidad horrorosa de divs -->
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M5LWCHD"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <!-- Contact Modal -->
+  <div class="modal fade bg-danger"
+    id="contacto" 
+    tabindex="-1" 
+    role="dialog" 
+    aria-labelledby="contacto" 
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-light">
+          <h5 class="modal-title" ><i class="fas fa-exclamation-triangle"></i> Antes de contactar</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Si deseas <strong> agregar o cambiar </strong> una <strong> malla</strong>, primero te invito a mirar el codigo fuente. ¡Allí podras encontrar toda la informacion que necesitas! <br>
+          Si encontraste un <strong> error/bug </strong> en la pagina puedes reportarlo desde el codigo fuente vía "Issues". De todas formas puedes contactarme.
+        </div>
+        <div class="modal-footer bg-light">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <a href="http://github.com/CsarMan/Mallas" class="btn btn-primary"><i class="fas fa-code-branch"></i> Codigo fuente</a>
+          <button type="button" id="contactar" onclick="contactar()" class="btn btn-danger"><i class="fas fa-envelope"></i> Contactar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Contact Modal END -->
+  
+  <!-- Agregar ramo personalizado -->
+  <div class="modal fade"
+    tabindex="-1" 
+    id="crearRamoModal" 
+    role="dialog" 
+    aria-labelledby="crearRamo" 
+    aria-hidden="true">
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="crearRamo">Añadir ramo fuera de la malla</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="newRamo">Nombre asignatura</label>
+            <input type="text"
+              class="form-control" 
+              id="custom-name" 
+              placeholder="Introducción a la malla interactiva">
+          </div>
+          <div class="form-group">
+            <label for="newRamo">Sigla asignatura</label>
+            <input type="text" class="form-control" id="custom-sigla" placeholder="INF-123">
+            <small id="sigla-Help" class="form-text text-muted">
+              Asegurate de que la sigla sea única y NO contenga espacios.
+            </small>
+          </div>
+          <div class="form-group">
+            <label for="newRamo">Creditos USM</label>
+            <input type="number" class="form-control" id="custom-credits" placeholder="1">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" id="crearRamo" onclick="crearRamo(true)" class="btn btn-primary">Agregar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- fin ramo -->
+  <!-- Header -->
+  <header data-include="header"></header>
+  <!-- Header END -->
+  <!-- Main  -->
+  <section class="container-fluid flex-grow-1">
+    <!-- Canvas -->
+    <div class="row justify-content-center">
+      <div class="col-xl-7 order-1">
+        <div class='priori-canvas' style="text-align:center;overflow-x:auto"></div>		          
+        <div class='color-description'
+          style="position:relative;display:flex;justify-content:center;flex-wrap:wrap;">
+        </div>
+      </div>
+    <!-- Canvas END -->
+    <!-- Calculadora -->
+      <div class="col-sm-auto order-3">
+        <form id="priorix" class="card mt-3">
+          <h4 class="card-header text-center">Calculadora de prioridad</h4>
+          <div class="px-3 my-0 py-2">
+            <div class="row justify-content-between mb-2">
+              <div class="col-1">
+                <div class="badge badge-info text-left">
+                  Semestre Nº <span id="semestre"></span>
+                </div>
+              </div>
+              <div class="col-sm-4 col-6 text-right">
+                <div class="input-group input-group-sm">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">FAE: </span>
+                  </div>
+                  <input id="fae" type="number" class="form-control" value="1">
+                </div>
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col text-center" id="resPrioridad">
+                <!-- <div class="alert alert-info mb-0" role="alert">
+                  <h4>Tu prioridad de <em>S2</em> es: <br> <strong>8723.23</strong></h4>
+                </div> -->
+                <!-- Alerta que informa prioridad -->
+              </div>
+            </div>
+          </div>
+          <hr class="my-0 py-0">    
+          <div class="card-body" style="overflow-y: auto" >
+            <span id="ramos">
+              <!-- Aqui van los ramos seleccionados -->
+            </span>
+          </div>
+          <hr class="my-0 py-0">
+          <p class="px-3 mb-0 text-center">
+            <small class=" text-muted">
+              ¿El ramo que quieres no esta en la malla? ¡Crealo en la <a data-scroll href="#anchor">tabla de abajo</a>!
+            </small>
+          </p>
+          <div class="card-footer px-3">
+            <!-- Botones para cambiar semestre y calcular prioridad -->
+            <div class="row no-gutters align-items-center justify-content-between">
+              <div class="col-2 text-left">
+                <button id="back" onclick="semestreAnterior()" type="button" class="btn-card btn btn-secondary">
+                  <i class="fas fa-arrow-left"></i>
+                </button>
+              </div>
+              <div class="col-5 col-sm-8">
+                <div class="row justify-content-center no-gutters">
+                  <div class="btn-group" role="group">
+                    <button
+                      type="button"
+                      id="Calcular"
+                      onclick="calcularPrioridad()"
+                      class="btn btn-info btn-card">
+                        Calcular
+                    </button>
+                    <button type="reset" onclick="limpiarSemestre()" class="btn btn-danger btn-card">
+                      Limpiar Semestre
+                    </button>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <button id="resetc" onclick="limpiarCalculadora()" type="button" class="btn btn-danger btn-card mt-1">
+                    Restablecer Calculadora
+                  </button>
+                </div>
+              </div>
+              <div class="col-2 text-right">
+                <button id="forward" onclick="proximoSemestre()" type="button" class="btn btn-secondary btn-card">
+                  <i class="fas fa-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+                <!-- Fin botones -->
+        </form>
+      </div>
+    <!-- Calculadora END -->
+    <div class="col-12 my-3 order-xl-3 order-2 text-center">
+      <h5>Mostrando créditos <span id="credits-system"></span></h5>
+      <button id="credit-system" type="button" onclick="changeCreditsSystem()" class="btn btn-secondary"> Cambiar sistema de créditos </button>
+    </div>
+    </div>
+    <!-- Ramos Fuera de malla -->
+    <div id="anchor" class="row justify-content-center mt-5">
+      <div class="col-lg-auto">
+        <div id="custramo" class="card">
+          <div  class="card-header">
+            <h3 class="card-title">Ramos fuera de la malla oficial</h3>
+          </div>
+          <div class="table-responsive">
+            <table id="customTable" class="card-body table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Sigla</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Creditos</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="customTableContent">
+                <!-- Aqui van los ramos fuera de malla -->
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer">
+            <button 
+              type="button" 
+              data-toggle="modal" 
+              data-target="#crearRamoModal"  
+              class="btn btn-primary btn-sm">
+                Crear ramo
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Main END -->
+  <!-- Footer -->
+  <footer data-include="footer"  class="container-fluid text-center mt-3">        
+  </footer>
+  <!-- Footer END -->
+
+
+  <script src='../js/d3.js'></script>
+  <script src='../js/ramos.js'></script>
+  <script src='../js/selectableRamo.js'></script>
+  <script src="../js/calculator.js"></script>
+  <script src='../js/canvas.js'></script>
+  <!-- Smooth scroll --> 
+  <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+  <script src="../js/init.js"></script>
+  <script type="text/template" data-template="tab-template1">
+    <li><a class="nav-item nav-link" href="?m=${Link}"><span class="d-md-none">Malla </span>${Nombre}</a></li>
+  </script>
+  <script type="text/template" data-template="tab-template2">
+    <a class="dropdown-item" href="?m=${Link}">Malla ${Nombre}</a>
+  </script>
+  <script>
+    var scroll = new SmoothScroll('a[href*="#"]', {
+      speed: 500,
+      easing: 'easeInOutCubic'
+    });
+    var mediaQueryList = window.matchMedia("(max-width: 575.98px)");
+    if (mediaQueryList.matches) {
+      d3.select('.btn-group')
+        .classed('btn-group-sm', true)
+      // .classed('btn-group-vertical', true)
+      // .classed('btn-group', false);
+      d3.select('#resetc').classed('btn-sm', true)
+    }
+    function handleOrientationChange(mql) {
+      if (mql.matches) {
+        d3.select('.btn-group')
+          .classed('btn-group-sm', true)
+        // .classed('btn-group-vertical', true)
+        // .classed('btn-group', false);
+        d3.select('#resetc').classed('btn-sm', true)
+      } else {
+        d3.select('.btn-group')
+          .classed('btn-group-sm', false)
+        // .classed('btn-group-vertical', false)
+        // .classed('btn-group', true);
+        d3.select('#resetc').classed('btn-sm', false)
+      }
+    }
+    mediaQueryList.addListener(handleOrientationChange)
+    handleOrientationChange(mediaQueryList);
+  </script>
+</body>
+</html>

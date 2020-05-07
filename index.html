@@ -1,50 +1,159 @@
 <!DOCTYPE html>
-<html>
+<html lang="es-cl">
 <head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-140369062-2"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-140369062-2');
+  gtag('config', 'UA-140369062-1');
 </script>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-M5LWCHD');</script>
+    <!-- End Google Tag Manager -->
 
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <meta charset="utf-8">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/app.css">
-  <title>Página en construcción</title>
+  <!-- Primary Meta Tags -->
+  <title>Malla interactiva</title>
+  <meta name="title" content="Malla interactiva">
+  <meta name="description" content="Visualiza y planifica tu carrera en la USM">
 
   <script data-ad-client="ca-pub-7089929340900631" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://csarman.github.io/malla-interactiva/">
+  <meta property="og:title" content="Malla interactiva">
+  <meta property="og:description" content="Visualiza y planifica tu carrera en la USM">
+  <meta property="og:image" content="https://csarman.github.io/malla-interactiva/social-image.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/darkMode.css">
+  <link rel="stylesheet" href="./css/styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet"> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" sizes="76x76" href="./apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="./apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="./apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="./apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon-180x180.png">
+  <link rel="shortcut icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="shortcut icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#2f58a7">
+  <meta name="apple-mobile-web-app-title" content="Malla Interactiva">
+  <meta name="application-name" content="Malla Interactiva">
+  <meta name="msapplication-TileColor" content="#2f58a7">
+  <meta name="theme-color" content="#f8f9fa">
+
 </head>
-<body>
+<body class="d-flex flex-column">
 
+  <!-- Contact Modal -->
+  <div class="modal fade bg-danger"
+    id="contacto" 
+    tabindex="-1" 
+    role="dialog" 
+    aria-labelledby="contacto" 
+    aria-hidden="true">
 
-<!-- <div class="grid-container" style="height:100vh"> -->
-  <div class="grid-x align-center align-middle" style="height: 100vh">
-    <div class="cell shrink text-center">
-      <h1>¡Hola Mundo!</h1>
-      <p>Esta página esta en construcción. Puede que tarde un poco...<br />
-      Mientras tanto, puedes mirar mis contribuciones a la malla interactiva.</p>
-      <a class="button" href="./malla-interactiva/prioridad/">¡Calcula tu prioridad!</a>
-      <a class="button"href="./malla-interactiva/personalizar/">¡Genera tu malla personal!</a>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-light">
+          <h5 class="modal-title" ><i class="fas fa-exclamation-triangle"></i> Antes de contactar</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Si deseas <strong> agregar o cambiar </strong> una <strong> malla</strong>, primero te invito a mirar el codigo fuente. ¡Allí podras encontrar toda la informacion que necesitas! <br>
+          Si encontraste un <strong> error/bug </strong> en la pagina puedes reportarlo desde el codigo fuente vía "Issues". De todas formas puedes contactarme.
+        </div>
+        <div class="modal-footer bg-light">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <a href="http://github.com/CsarMan/Mallas" class="btn btn-primary"><i class="fas fa-code-branch"></i> Codigo fuente</a>
+          <button type="button" id="contactar" onclick="contactar()" class="btn btn-danger"><i class="fas fa-envelope"></i> Contactar</button>
+        </div>
+      </div>
     </div>
   </div>
-
-<!-- </div> -->
-
+  <!-- Contact Modal END -->
 
 
 
 
-<!-- Compressed JavaScript -->
-<!-- Scripts -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/what-input/5.2.1/what-input.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/js/foundation.min.js" integrity="sha256-/PFxCnsMh+nTuM0k3VJCRch1gwnCfKjaP8rJNq5SoBg= sha384-9ksAFjQjZnpqt6VtpjMjlp2S0qrGbcwF/rvrLUg2vciMhwc1UJJeAAOLuJ96w+Nj sha512-UMSn6RHqqJeJcIfV1eS2tPKCjzaHkU/KqgAnQ7Nzn0mLicFxaVhm9vq7zG5+0LALt15j1ljlg8Fp9PT1VGNmDw==" crossorigin="anonymous"></script>
-<script src="js/app.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Header -->
+  <header data-include="header"></header>
+      
+
+
+ 
+  <!-- Main -->
+  <section class="container-fluid flex-grow-1">
+    <div class="row justify-content-center no-gutters">
+      <div class="col">
+        <div class='canvas text-center' style="overflow-x:auto"></div>		
+        <div class='color-description' style="position:relative;display:flex;justify-content:center;flex-wrap:wrap;"></div>
+      </div>
+    </div>
+    <div class="info row">
+      <div class="col text-center center-block">
+        <h5>Mostrando créditos <span id="credits-system"></span><br>Créditos aprobados: <span id='creditos'></span></h5>
+        <button type="button" onclick="limpiarRamos()" class="mt-2 btn btn-info">Limpiar ramos aprobados</button>
+        <button id="credit-system" type="button" onclick="changeCreditsSystem()" class="mt-2 btn btn-secondary"> Cambiar sistema de créditos </button>
+      </div>
+    </div>
+  </section>
+  <!-- Main END  -->
+  
+  
+  <!-- Footer -->
+  <footer data-include="footer"  class="container-fluid text-center mt-3">         
+  </footer>
+  <!-- Footer END -->
+
+
+    <!-- scripts -->
+
+  </script>
+  <script src='./js/d3.js'></script>
+  <script src='./js/ramos.js'></script>
+  <script src='./js/canvas.js'></script>
+  <script src="./js/init.js"></script>
+  <script src="https://kit.fontawesome.com/bf671ef02a.js"></script>
+  <script type="text/template" data-template="tab-template1">
+    <li><a class="nav-item nav-link" href="?m=${Link}"><span class="d-md-none">Malla </span>${Nombre}</a></li>
+  </script>
+  <script type="text/template" data-template="tab-template2">
+    <a class="dropdown-item" href="?m=${Link}">Malla ${Nombre}</a>
+  </script>
 </body>
 </html>
