@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+      @media (max-width: 1199.95px) {
+        /* Por alguna razon ocurre antes */
+        #priorix {
+          height: initial;
+          width: initial;
+        }
+      }
+      @media (min-width: 1200px) {
+        #priorix {
+          height: 42rem;
+          width: 450px;
+        }
+      }
+    </style>
+    <title>Hello, world!</title>
+  </head>
+  <body class="">
+
+  <div class="">
+
+  <section class="container-fluid">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-sm-auto order-xl-2 order-4">
+      <form id="priorix" class="d-flex flex-column">
+        <div class="card flex-fill">
+          <div class="card-header">
+            <div class="row no-gutters">
+              <div class="col align-self-center">
+                <h4 class="text-center align-middle mb-0">
+                  Calculadora de prioridad
+                </h4>
+              </div>
+              <div class="col-auto">
+                <button  class="btn btn-secondary" type="button"><i class="fas fa-question"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="card-body d-flex flex-column p-0">
+            <div style="position: -webkit-sticky; position: sticky; top: 0; z-index: 2; -webkit-backdrop-filter: blur(15px); backdrop-filter: blur(15px);">
+              <div class="row no-gutters justify-content-between pt-2 mb-auto">
+                <div class="col-auto pl-3 align-items-center">
+                  <div class="badge badge-pill badge-info text-left">
+                    Semestre Nº <span id="semester"></span>
+                  </div>
+                </div>
+                <div class="col-sm-4 pr-3 col-6 text-right">
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">FAE: </span>
+                    </div>
+                    <input id="fae" type="number" class="form-control" value="1">
+                  </div>
+                </div>
+                <hr class="w-100 mt-2 m-0">
+
+              </div>
+            </div>
+            <!-- Aqui van los ramos seleccionados -->
+            <div class="subjectContainer">
+                          <span class="subjects p-3"></span>
+
+            </div>
+
+            <div class=" card-text flex-fill d-flex flex-column text-center text-muted">
+              <p class="no-subjects my-auto">
+                No hay ningún ramo seleccionado
+              </p>
+            </div>
+
+            <div class="mt-auto" style="position: -webkit-sticky; position: sticky; bottom: 0;z-index: 1">
+              <div class="priorix-result text-center alert alert-info mb-0" role="alert">
+                Prioridad Vieja: <strong><span class="resUSM">0</span></strong> <span class="d-sm-inline d-none">|</span> <br class="d-sm-none"> Prioridad Nueva: <strong><span class="resSCT">0</span></strong>
+              </div>
+
+            </div>
+            <hr class="w-100 mt-auto mb-0">
+            <div class="text-muted mb-0 text-center py-1 px-3 px-xl-1 w-100">
+              <small class="mb-0">
+                ¿El ramo que quieres no esta en la malla? ¡Crealo en la <a data-scroll href="#anchor">tabla de abajo</a>!
+              </small>
+            </div>
+          </div>
+          <div class="card-footer  px-3">
+            <!-- Botones para cambiar semestre y calcular prioridad -->
+            <div class="row no-gutters align-items-center justify-content-between">
+              <div class="col-2 text-left">
+                <button id="back" type="button" class="btn-card btn btn-secondary disabled">
+                  <i class="fas fa-arrow-left"></i>
+                </button>
+              </div>
+              <div class="col-5 col-sm-8">
+                <div class="row justify-content-center no-gutters">
+                  <div class="btn-group" role="group">
+                    <button
+                            type="button"
+                            id="Calcular"
+                            onclick="calcularPrioridad()"
+                            class="btn btn-info btn-card">
+                      Calcular
+                    </button>
+                    <button type="reset" id="reset" class="btn btn-danger btn-card">
+                      Limpiar Semestre
+                    </button>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <button id="resetc" type="button" class="btn btn-danger btn-card mt-1">
+                    Restablecer Calculadora
+                  </button>
+                </div>
+              </div>
+              <div class="col-2 text-right">
+                <button id="forward" type="button" class="btn btn-secondary btn-card">
+                  <i class="fas fa-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Fin botones -->
+        </div>
+      </form>
+    </div>
+  </div>
+  </section>
+  </div>
+  <div style="height: 1000px; width: 100vw">s</div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src='./js/ramo.js'></script>
+    <script src="js/selectableRamo.js"></script>
+    <script src='./js/malla.js'></script>
+    <script src="./js/storageManager.js"></script>
+  </body>
+</html>
