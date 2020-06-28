@@ -16,19 +16,10 @@
 <script>
 
     if ('serviceWorker' in navigator) {
-        console.log("Service worker compatible")
-        window.addEventListener('load', function() {
-            navigator.serviceWorker.register('./sw.js').then(function(registration) {
-                // Registration was successful
-                let element = document.createElement("p")
-                element.textContent = "A service worker has been installed, congratulations"
-                document.body.append(element)
-                console.log('ServiceWorker registration successful with scope: ', registration.scope);
-            }, function(err) {
-                // registration failed :(
-                console.log('ServiceWorker registration failed: ', err);
-            });
-        });
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            for(let registration of registrations) {
+                registration.unregister()
+            } })
     }
 </script>
 </body>

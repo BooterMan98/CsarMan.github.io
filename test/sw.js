@@ -1,4 +1,4 @@
-const PRECACHE = 'precache-v22';
+const PRECACHE = 'final';
 const RUNTIME = 'runtime';
 
 // Habilita el cache de todo para permitir funcionamiento online
