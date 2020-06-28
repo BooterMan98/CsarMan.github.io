@@ -1,0 +1,10 @@
+{
+    "name": "Service Worker Test",
+    "short_name": "SW Test",
+    "icons": [
+    ],
+    "start_url": "http://csarman.github.io/test",
+    "theme_color": "#f8f9fa",
+    "background_color": "#f8f9fa",
+    "display": "standalone"
+}
