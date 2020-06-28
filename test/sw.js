@@ -1,16 +1,17 @@
-const PRECACHE = 'precache-v2';
+const PRECACHE = 'precache-v22';
 const RUNTIME = 'runtime';
 
 // Habilita el cache de todo para permitir funcionamiento online
 // A list of local resources we always want to be cached.
 const PRECACHE_URLS = [
     './index.html',
-    './',
+    './'
 ];
 
 // The activate handler takes care of cleaning up old caches.
 self.addEventListener('activate', event => {
     console.log("activado")
+    console.log(PRECACHE)
     const currentCaches = [PRECACHE, RUNTIME];
     event.waitUntil(
         caches.keys().then(cacheNames => {
