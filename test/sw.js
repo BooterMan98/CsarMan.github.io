@@ -1,4 +1,4 @@
-const PRECACHE = 'precache-v1';
+const PRECACHE = 'precache-v2';
 const RUNTIME = 'runtime';
 
 // Habilita el cache de todo para permitir funcionamiento online
