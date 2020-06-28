@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mini test</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+    <link rel="manifest" href="./site.webmanifest">
+</head>
+<body>
+<h1>Mini test</h1>
+<p>Hello there, this is a Service Worker test, the paragraph below should update accordingly after changing the cache version
+    on the service worker.</p>
+<p>This text is in need of a change</p>
+
+<script>
+
+    if ('serviceWorker' in navigator) {
+        console.log("Service worker compatible")
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('./sw.js').then(function(registration) {
+                // Registration was successful
+                let element = document.createElement("p")
+                element.textContent = "A service worker has been installed, congratulations"
+                document.body.append(element)
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }, function(err) {
+                // registration failed :(
+                console.log('ServiceWorker registration failed: ', err);
+            });
+        });
+    }
+</script>
+</body>
+</html>
