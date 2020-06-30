@@ -1,7 +1,6 @@
 const PRECACHE = 'newT1est';
 const RUNTIME = 'runtime';
 
-// Habilita el cache de todo para permitir funcionamiento online
 // A list of local resources we always want to be cached.
 const PRECACHE_URLS = [
     './index.html',
