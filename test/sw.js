@@ -1,4 +1,4 @@
-const PRECACHE = 'newTest';
+const PRECACHE = 'newT2est';
 const RUNTIME = 'runtime';
 
 // Habilita el cache de todo para permitir funcionamiento online
