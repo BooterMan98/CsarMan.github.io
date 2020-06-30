@@ -1,4 +1,4 @@
-const PRECACHE = 'final';
+const PRECACHE = 'finalisimo';
 const RUNTIME = 'runtime';
 
 // Habilita el cache de todo para permitir funcionamiento online
