@@ -1,11 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script type="application/javascript">!function(){var e=new XMLHttpRequest;e.onload=function(){var n=e.responseText,t=n.indexOf('"/precache-manifest.')+20,o=n.indexOf('.js"',t);if(o-t==32){var r=localStorage,i=r.getItem("pmv"),s=n.substring(t,o);if(s!==i)return r.setItem("pmv",s),window.location.reload(!0)}},e.open("GET","/service-worker.js?c=" + new Date().getTime()),e.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate'),e.send()}();</script>
     <meta charset="UTF-8">
     <title>Mini test</title>
     <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
     <link rel="manifest" href="./site.webmanifest">
+    <script>
+
+        window.addEventListener("DOMContentLoaded", function () {
+            let e = document.createElement("p")
+            e.textContent = "DOM loaded"
+            document.body.append(e)
+        })
+        window.addEventListener("load", function () {
+            let e = document.createElement("p")
+            e.textContent = "Load event"
+            document.body.append(e)
+        })
+
+        // if ('serviceWorker' in navigator) {
+        //     if (global.navigator.userAgent)
+        //     console.log("Service worker compatible")
+        //     window.addEventListener('load', function() {
+        //         navigator.serviceWorker.register('./sw.js').then(function(registration) {
+        //             // Registration was successful
+        //             let element = document.createElement("p")
+        //             element.textContent = "A service worker has been installed, congratulations"
+        //             document.body.append(element)
+        //             console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        //         }, function(err) {
+        //             // registration failed :(
+        //             console.log('ServiceWorker registration failed: ', err);
+        //         });
+        //     });
+        // }
+    </script>
 </head>
 <body>
 <h1>Mini test</h1>
@@ -14,23 +43,6 @@
 <p>This text has changed again</p>
 
 <button role="button" type="button" onclick="window.location.reload()">Actualizar página</button>
-<script>
 
-    if ('serviceWorker' in navigator) {
-        console.log("Service worker compatible")
-        window.addEventListener('load', function() {
-            navigator.serviceWorker.register('./sw.js').then(function(registration) {
-                // Registration was successful
-                let element = document.createElement("p")
-                element.textContent = "A service worker has been installed, congratulations"
-                document.body.append(element)
-                console.log('ServiceWorker registration successful with scope: ', registration.scope);
-            }, function(err) {
-                // registration failed :(
-                console.log('ServiceWorker registration failed: ', err);
-            });
-        });
-    }
-</script>
 </body>
 </html>
