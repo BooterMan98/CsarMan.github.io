@@ -115,6 +115,11 @@
   <lastmod>2020-07-01T16:46:42+00:00</lastmod>
   <changefreq>monthly</changefreq>
   <priority>1.0</priority>
+</url><url>
+  <loc>https://csarman.github.io/malla-interactiva/?m=ICM</loc>
+  <lastmod>2020-07-01T16:46:42+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>1.0</priority>
 </url>
 
 <url>
@@ -137,12 +142,6 @@
 </url>
 <url>
   <loc>https://csarman.github.io/malla-interactiva/prioridad/?m=CIV</loc>
-  <lastmod>2020-07-01T16:46:42+00:00</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.8</priority>
-</url>
-<url>
-  <loc>https://csarman.github.io/malla-interactiva/prioridad/?m=</loc>
   <lastmod>2020-07-01T16:46:42+00:00</lastmod>
   <changefreq>monthly</changefreq>
   <priority>0.8</priority>
@@ -253,12 +252,6 @@
 </url>
 <url>
   <loc>https://csarman.github.io/malla-interactiva/personalizar/?m=CIV</loc>
-  <lastmod>2020-07-01T16:46:42+00:00</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.8</priority>
-</url>
-<url>
-  <loc>https://csarman.github.io/malla-interactiva/personalizar/?m=</loc>
   <lastmod>2020-07-01T16:46:42+00:00</lastmod>
   <changefreq>monthly</changefreq>
   <priority>0.8</priority>
